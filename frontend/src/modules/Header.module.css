@@ -1,0 +1,27 @@
+.nav {
+  background-color: #222831;
+  padding: 25px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.nav ul {
+  display: flex;
+  gap: 50px;
+  font-size: 0.8rem;
+}
+
+.nav h1, .nav a {
+  color: #FFD369;
+  letter-spacing: 2px;
+}
+
+.nav ul a:hover {
+  color: hsl(42, 20%, 71%);
+}
+
+.nav a i {
+  margin-right: 5px;
+}

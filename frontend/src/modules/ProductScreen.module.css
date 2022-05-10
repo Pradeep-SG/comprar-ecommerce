@@ -1,0 +1,99 @@
+.goback {
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  color: #393E46;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  color: #393E46;
+}
+
+.image {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+  border: 2px solid #EEEEEE;
+  border-radius: 1rem;
+  padding: 20px;
+}
+
+.title {
+  text-transform: uppercase;
+}
+
+.category {
+  background-color: #EEEEEE;
+  border-radius: 2rem;
+  display: inline-block;
+  padding: 5px 20px;
+  margin: 15px 0;
+}
+
+.rating {
+  margin: 15px 0;
+}
+
+.rating i{
+  color: #FFD369;
+}
+
+.count {
+  margin-left: 5px;
+}
+
+.stock {
+  min-width: 300px;
+  border: 1px solid #EEEEEE;
+  height: fit-content;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.stockdet {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.stocktitle {
+  border-right: 1px solid #EEEEEE;
+  width: 50%;
+}
+
+.stockdesc {
+  width: 50%;
+}
+
+.stocktitle p, .stockdesc p{
+  padding: 10px 0;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.stocktitle p:last-child, .stockdesc p:last-child {
+  border: none;
+}
+
+.addButton {
+  padding: 20px 0;
+  width: 100%;
+}
+
+.addtocart {
+  width: 60%;
+  padding: 10px 20px;
+  border: none;
+  background-color: #222831;
+  color: #FFD369;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.addtocart:hover {
+  background-color: hsl(216, 18%, 22%);
+}
