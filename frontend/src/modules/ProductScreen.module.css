@@ -2,6 +2,7 @@
   text-transform: uppercase;
   margin-bottom: 40px;
   color: #393E46;
+  cursor: pointer;
 }
 
 .container {
@@ -65,6 +66,7 @@
 
 .stockdesc {
   width: 50%;
+  position: relative;
 }
 
 .stocktitle p, .stockdesc p{
@@ -74,6 +76,55 @@
 
 .stocktitle p:last-child, .stockdesc p:last-child {
   border: none;
+}
+
+.dropdownqtyParent {
+  display: grid;
+  place-items: center;
+}
+
+.dropdownqty {
+  width: 50px;
+  padding: 3px !important;
+  margin: 7px auto;
+  cursor: pointer;
+  background-color: #393E46;
+  color: #FFD369;
+}
+
+.dropdownqty i{
+  margin-left: 8px;
+}
+
+.dropdown {
+  position: absolute;
+  border-bottom: 1px solid #EEEEEE;
+  width: 50px;
+  top: 100%;
+  margin-top: -7px;
+  left: 50%;
+  margin-left: -25px;
+  opacity: 0;
+  cursor: pointer;
+  z-index: -1;
+  transform: translateY(-30px);
+  transition: all 0.3s ease-in;
+  background-color: #393E46;
+  color: #FFD369;
+}
+
+.dropdown p:hover {
+  background-color: hsl(217, 10%, 50%);
+}
+
+.showDropdown {
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(0);
+}
+
+.dropdown p {
+  padding: 5px 15px;
 }
 
 .addButton {
@@ -96,4 +147,9 @@
 
 .addtocart:hover {
   background-color: hsl(216, 18%, 22%);
+}
+
+.addtocart.disabled {
+  background-color: hsl(216, 18%, 60%) !important;
+  cursor: not-allowed;
 }

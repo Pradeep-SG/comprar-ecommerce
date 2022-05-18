@@ -26,7 +26,6 @@ const productDetailsSlice = createSlice({
       };
     },
     [fetchProductDetails.rejected]: (state, action) => {
-      console.log(action);
       state.productDetails = {
         error: { ...action.payload },
       };

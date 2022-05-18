@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '../components/Rating';
 import classes from '../modules/ProductScreen.module.css';
 import { fetchProductDetails } from '../slices/products/productDetails';
+import { fetchCartProduct } from '../slices/carts/cartDetails';
 
-const ProductScreen = () => {
+const ProductScreen = ({ history }) => {
+  const [quantity, setQuantity] = useState(1);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, product, error } = useSelector(
     (state) => state.productDetails.productDetails
   );
@@ -17,6 +21,21 @@ const ProductScreen = () => {
     dispatch(fetchProductDetails(id));
   }, [dispatch]);
 
+  const addToCartHandler = () => {
+    dispatch(fetchCartProduct({ id, quantity }));
+    navigate(`/cart/${id}?qty=${quantity}`);
+  };
+
+  const gobackHandler = () => {
+    navigate(-1) ? navigate(-1) : navigate('/');
+  };
+
+  const limit = product ? (product.stock >= 5 ? 5 : product.stock) : 0;
+  const dropDown = [];
+  for (let i = 0; i < limit; i++) {
+    dropDown.push(i + 1);
+  }
+
   return (
     <>
       {loading ? (
@@ -26,11 +45,11 @@ const ProductScreen = () => {
       ) : (
         product && (
           <div>
-            <Link to="/">
+            <div onClick={gobackHandler}>
               <h5 className={classes.goback}>
                 <i className="fa-solid fa-angles-left"></i> Go Back
               </h5>
-            </Link>
+            </div>
             <div className={classes.container}>
               <div>
                 <img
@@ -54,16 +73,52 @@ const ProductScreen = () => {
               <div className={classes.stock}>
                 <div className={classes.stockdet}>
                   <div className={classes.stocktitle}>
-                    <p>Price</p>
                     <p>Status</p>
+                    {product.stock > 0 && <p>Quantity</p>}
                   </div>
                   <div className={classes.stockdesc}>
-                    <p>$ 1.20</p>
                     <p>{product.stock > 0 ? 'In Stock' : 'Out of stock'}</p>
+                    {product.stock > 0 && (
+                      <>
+                        <div className={classes.dropdownqtyParent}>
+                          <p
+                            className={`${classes.dropdownqty}`}
+                            onClick={() => setShow(!show)}
+                          >
+                            {quantity}
+                            <i className="fa-solid fa-caret-down"></i>
+                          </p>
+                        </div>
+                        <div
+                          className={`${classes.dropdown} ${
+                            show && classes.showDropdown
+                          }`}
+                        >
+                          {dropDown.map((x) => (
+                            <p
+                              key={x}
+                              onClick={() => {
+                                setQuantity(x);
+                                setShow(false);
+                              }}
+                            >
+                              {x}
+                            </p>
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className={classes.addButton}>
-                  <button className={classes.addtocart}>Add to cart</button>
+                  <button
+                    className={`${classes.addtocart} ${
+                      product.stock <= 0 && classes.disabled
+                    }`}
+                    onClick={() => product.stock > 0 && addToCartHandler()}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </div>

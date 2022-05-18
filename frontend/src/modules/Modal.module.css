@@ -1,0 +1,25 @@
+
+
+.bgdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+.content {
+  width: 500px;
+  height: 300px;
+  top: 50vh;
+  left: 50vw;
+  margin-left: -250px;
+  margin-top: -150px;
+  background-color: white;
+  display: grid;
+  place-content: center;
+  border-radius: 0.7rem;
+  position: fixed;
+  transition: all 1s;
+}
