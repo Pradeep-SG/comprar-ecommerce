@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchCartProduct = createAsyncThunk(
-  'cartDetailSlice',
-  async (arg, { rejectWithValue }) => {
-    const { id, quantity } = arg;
+  'cartDetailSlice/fetchCartProduct',
+  async (props, { rejectWithValue }) => {
+    const { id, quantity } = props;
     try {
       const { data } = await axios.get(`/api/products/${id}`);
       return {
@@ -69,25 +69,6 @@ const cartDetailSlice = createSlice({
       }
 
       localStorage.setItem('cartDetails', JSON.stringify(state));
-
-      // !existItem
-      //   ? (state.cartDetails = {
-      //       products: [...currentState, action.payload],
-      //     })
-      //   : null;
-
-      // state.cartDetails = {...state.cartDetails, action.payload};
-      // const existItem = state.cartDetails.find(
-      //   (p) => p.product === action.payload.product
-      // );
-      // const existItem = {};
-      // existItem
-      //   ? (state.cartDetails = [
-      //       state.cartDetails.map((p) =>
-      //         p.product === action.payload.product ? action.payload : p
-      //       ),
-      //     ])
-      //   : (state.cartDetails = [...state.cartDetails, action.payload]);
     },
     [fetchCartProduct.rejected]: (state, action) => {
       state.cartDetails = {

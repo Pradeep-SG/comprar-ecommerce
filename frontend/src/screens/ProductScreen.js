@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '../components/Rating';
 import classes from '../modules/ProductScreen.module.css';
@@ -19,7 +19,7 @@ const ProductScreen = ({ history }) => {
 
   useEffect(() => {
     dispatch(fetchProductDetails(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const addToCartHandler = () => {
     dispatch(fetchCartProduct({ id, quantity }));

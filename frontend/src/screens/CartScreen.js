@@ -20,9 +20,7 @@ const CartScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { products, error } = useSelector(
-    (state) => state.cartDetails.cartDetails
-  );
+  const { products } = useSelector((state) => state.cartDetails.cartDetails);
 
   const decrementHandler = (id, quantity) => {
     quantity--;
