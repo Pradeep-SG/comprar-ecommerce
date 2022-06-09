@@ -34,13 +34,12 @@ export const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already Exists');
   }
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-  });
-
-  if (user) {
+  try {
+    const user = await User.create({
+      name,
+      email,
+      password,
+    });
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -48,9 +47,14 @@ export const registerUser = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
-  } else {
-    res.status(400);
-    throw new Error('Invalid user data');
+  } catch (error) {
+    if (error.message.startsWith('User validation failed')) {
+      res.status(400);
+      throw new Error('Invalid user data');
+    } else {
+      res.status(400);
+      throw new Error(error.message);
+    }
   }
 });
 
@@ -66,6 +70,31 @@ export const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    Update user Details
+// @route   PUT /api/users/Profile
+// @access  Private
+export const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    if (req.body.password) user.password = req.body.password;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
     });
   } else {
     res.status(404);

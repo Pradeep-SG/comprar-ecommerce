@@ -3,8 +3,8 @@ import axios from 'axios';
 
 export const fetchCartProduct = createAsyncThunk(
   'cartDetailSlice/fetchCartProduct',
-  async (props, { rejectWithValue }) => {
-    const { id, quantity } = props;
+  async (arg, { rejectWithValue }) => {
+    const { id, quantity } = arg;
     try {
       const { data } = await axios.get(`/api/products/${id}`);
       return {
@@ -71,6 +71,7 @@ const cartDetailSlice = createSlice({
       localStorage.setItem('cartDetails', JSON.stringify(state));
     },
     [fetchCartProduct.rejected]: (state, action) => {
+      console.log(action.payload);
       state.cartDetails = {
         ...state.cartDetails,
         error: action.payload,

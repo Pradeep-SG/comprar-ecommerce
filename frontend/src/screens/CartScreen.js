@@ -120,10 +120,12 @@ const CartScreen = () => {
                 </h3>
                 <h3>
                   {'$ ' +
-                    products.reduce(
-                      (prev, curr) => prev + curr.price * curr.quantity,
-                      0
-                    )}
+                    products
+                      .reduce(
+                        (prev, curr) => prev + curr.price * curr.quantity,
+                        0
+                      )
+                      .toFixed(2)}
                 </h3>
               </div>
             </div>

@@ -13,15 +13,55 @@
   font-size: 0.8rem;
 }
 
-.nav h1, .nav a {
+.nav h1, .nav a, .nav li {
   color: #FFD369;
   letter-spacing: 2px;
+}
+
+.profile {
+  position: relative;
+}
+
+.profile:hover{
+  color: hsl(42, 20%, 71%);
+  cursor: pointer;
 }
 
 .nav ul a:hover {
   color: hsl(42, 20%, 71%);
 }
 
-.nav a i {
-  margin-right: 5px;
+.nav li i {
+  margin: 0 7px;
+}
+
+.dropdown {
+  text-align: end;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  margin-left: -17px;
+  opacity: 0;
+  cursor: pointer;
+  z-index: -1;
+  transform: translateY(-30px);
+  transition: all 0.3s ease-in;
+  background-color: #222831;
+  color: #FFD369;
+  width: 130px;
+}
+
+.dropdown p:hover {
+  background-color: hsl(217, 10%, 50%);
+}
+
+.showDropdown {
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(0);
+}
+
+.dropdown p {
+  padding: 5px 15px;
+  border-bottom: 1px solid #EEEEEE;
 }

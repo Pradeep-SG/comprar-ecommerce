@@ -1,0 +1,72 @@
+.outer-div {
+  height: 70vh;
+  display: flex;
+  place-content: center;
+}
+
+.form-div {
+  text-align: center;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow:  25px 25px 51px #d9d9d9,
+             -25px -25px 51px #ffffff;
+  padding: 40px;
+  border-radius: 0.5rem;
+}
+
+.form-div input{
+  padding: 10px;
+  border: 1px solid rgba(34, 40, 49, 0.2);
+  border-radius: 0.2rem;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.form-div input::placeholder {
+  text-align: center;
+  font-size: 15px;
+}
+
+.form-div input:focus {
+  outline: 2px solid #FFD369;
+}
+
+.signin-title {
+  text-transform: uppercase;
+  color: #222831;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding-bottom: 10px;
+}
+
+.signin {
+  padding: 10px;
+  border: none;
+  background-color: #222831;
+  color: #FFD369;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.signin:hover {
+  background-color: hsl(216, 18%, 22%);
+}
+
+.new-user {
+  padding-top: 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.new-user span {
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}

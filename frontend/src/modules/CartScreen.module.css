@@ -134,4 +134,5 @@
 
 .place button:hover {
   background-color: hsl(216, 18%, 22%);
+  z-index: -5;
 }
