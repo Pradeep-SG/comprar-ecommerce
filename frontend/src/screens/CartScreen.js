@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../components/Modal';
-import classes from '../modules/CartScreen.module.css';
+import classes from '../modules/CartScreen.module.scss';
 import { fetchCartProduct, deleteItem } from '../slices/carts/cartDetails';
 
 const CartScreen = () => {
@@ -57,7 +57,7 @@ const CartScreen = () => {
           {modalText}
         </Modal>
       )}
-      {!products.length ? (
+      {!products || !products.length ? (
         <h3>Cart is empty</h3>
       ) : (
         <div className={classes.outerdiv}>
@@ -76,7 +76,7 @@ const CartScreen = () => {
                 >
                   {product.title}
                 </p>
-                <p className={classes.price}>$ {product.price}</p>
+                <p className={classes.price}>$ {product.price.toFixed(2)}</p>
                 <div className={classes.buttons}>
                   <button
                     onClick={() =>
@@ -129,7 +129,10 @@ const CartScreen = () => {
                 </h3>
               </div>
             </div>
-            <div className={classes.place}>
+            <div
+              className={classes.place}
+              onClick={() => navigate('/signin?redirect=shipping')}
+            >
               <button>Place an order</button>
             </div>
           </div>

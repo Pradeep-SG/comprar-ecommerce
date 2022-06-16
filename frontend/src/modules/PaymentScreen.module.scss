@@ -1,0 +1,38 @@
+.select-parent {
+  display: flex;
+  input {
+    display: none;
+  }
+  input:checked ~ label .custom-radio:after{
+    display: block;
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: #FFD369;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 50%;
+  }
+}
+
+.select-label {
+  margin-left: 55px;
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+  &:hover .custom-radio{
+    background-color: hsl(216, 18%, 30%);
+  }
+}
+
+.custom-radio {
+  display: block;
+  height: 20px;
+  width: 20px;
+  background-color: #222831;
+  border-radius: 50%;
+  position: relative;
+}
+

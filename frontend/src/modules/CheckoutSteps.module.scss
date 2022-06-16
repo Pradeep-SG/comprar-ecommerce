@@ -1,0 +1,67 @@
+$primary-active: #FFD369;
+$secondary-active: hsl(42, 100%, 90%);
+$primary-inactive: hsl(216, 18%, 80%);
+$secondary-inactive: hsl(216, 18%, 95%);
+
+.checkout-title {
+  text-align: center;
+  width: 400px;
+  margin: auto;
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  div {
+    &:first-child {
+      text-align: left;
+    }
+    &:nth-child(2) {
+      flex-grow: 1;
+    }
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
+
+.checkout-outer {
+  width: 400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.progress {
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  background-color: $primary-inactive;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -10;
+}
+.active-progress {
+  height: 5px;
+  width: 0%;
+  position: absolute;
+  background-color: $primary-active;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -10;
+}
+
+.steps {
+  background-color: $secondary-inactive;
+  height: 30px;
+  width: 30px;
+  border: 1px solid $primary-inactive;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  &.active {
+    background-color: $secondary-active;
+    border: 1px solid $primary-active;
+  }
+}

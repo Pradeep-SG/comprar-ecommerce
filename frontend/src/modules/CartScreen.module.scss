@@ -1,3 +1,5 @@
+@import './globals';
+
 .outerdiv {
   display: flex;
   gap: 30px;
@@ -20,19 +22,17 @@
 }
 
 .title {
+  @include flex-align-center;
   width: 30%;
   overflow: hidden;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+  padding-right: 1rem;
   border-right: 1px solid rgba(34, 40, 49, 0.2);
 }
 
 .price {
+  @include flex-align-center;
   width: 100px;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
   border-right: 1px solid rgba(34, 40, 49, 0.2);
 }
 
@@ -41,8 +41,7 @@
 }
 
 .buttons {
-  display: flex;
-  align-items: center;
+  @include flex-align-center;
   gap: 25px;
 }
 
@@ -135,4 +134,8 @@
 .place button:hover {
   background-color: hsl(216, 18%, 22%);
   z-index: -5;
+}
+
+.not-link {
+  cursor: default;
 }

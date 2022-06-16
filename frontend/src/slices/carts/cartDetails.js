@@ -34,7 +34,22 @@ const cartDetailSlice = createSlice({
         (p) => p.product !== action.payload
       );
       state.cartDetails = {
+        ...state.cartDetails,
         products: [...tempArr],
+      };
+      localStorage.setItem('cartDetails', JSON.stringify(state));
+    },
+    saveShippingAddress(state, action) {
+      state.cartDetails = {
+        ...state.cartDetails,
+        shippingAddress: action.payload,
+      };
+      localStorage.setItem('cartDetails', JSON.stringify(state));
+    },
+    savePaymentMethod(state, action) {
+      state.cartDetails = {
+        ...state.cartDetails,
+        paymentMethod: action.payload,
       };
       localStorage.setItem('cartDetails', JSON.stringify(state));
     },
@@ -60,10 +75,12 @@ const cartDetailSlice = createSlice({
           p.product === action.payload.product ? action.payload : p
         );
         state.cartDetails = {
+          ...state.cartDetails,
           products: [...updatedState],
         };
       } else {
         state.cartDetails = {
+          ...state.cartDetails,
           products: [...currentState, action.payload],
         };
       }
@@ -80,6 +97,7 @@ const cartDetailSlice = createSlice({
   },
 });
 
-export const { deleteItem } = cartDetailSlice.actions;
+export const { deleteItem, saveShippingAddress, savePaymentMethod } =
+  cartDetailSlice.actions;
 
 export default cartDetailSlice.reducer;

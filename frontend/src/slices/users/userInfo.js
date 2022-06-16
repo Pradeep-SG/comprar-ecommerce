@@ -98,6 +98,7 @@ const userInfoSlice = createSlice({
   reducers: {
     userLogout(state, action) {
       localStorage.removeItem('userInfo');
+      localStorage.removeItem('user');
       state.userInfo = {};
     },
   },

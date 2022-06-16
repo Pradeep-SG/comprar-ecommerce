@@ -17,11 +17,11 @@ const SigninScreen = () => {
   const searchParams = new URLSearchParams(location.search);
   const redirect = searchParams.get('redirect')
     ? searchParams.get('redirect')
-    : '/';
+    : '';
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(`/${redirect}`);
     }
   }, [redirect, userInfo, navigate]);
 
@@ -60,7 +60,7 @@ const SigninScreen = () => {
             <span
               onClick={() =>
                 navigate(
-                  redirect !== '/'
+                  redirect !== ''
                     ? `/register?redirect=${redirect}`
                     : '/register'
                 )
