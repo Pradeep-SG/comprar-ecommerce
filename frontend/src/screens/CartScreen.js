@@ -109,15 +109,15 @@ const CartScreen = () => {
           </div>
           <div className={classes.priceDetails}>
             <div className={classes.details}>
-              <div className={classes.priceHead}>
-                <h3>Total </h3>
-                <h3>Price </h3>
-              </div>
               <div>
+                <h3 className={classes.priceHead}>Total </h3>
                 <h3>
                   {products.reduce((prev, curr) => prev + curr.quantity, 0)}{' '}
                   Items
                 </h3>
+              </div>
+              <div>
+                <h3 className={classes.priceHead}>Item(s) Price </h3>
                 <h3>
                   {'$ ' +
                     products

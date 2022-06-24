@@ -18,7 +18,7 @@
   border-radius: 0.5rem;
 }
 
-.form-div input{
+.form-div input, .form-div textarea{
   padding: 10px;
   border: 1px solid rgba(34, 40, 49, 0.2);
   border-radius: 0.2rem;
@@ -26,13 +26,17 @@
   font-weight: 500;
 }
 
-.form-div input::placeholder {
+.form-div input::placeholder, .form-div textarea::placeholder {
   text-align: center;
   font-size: 15px;
 }
 
-.form-div input:focus {
+.form-div input:focus, .form-div textarea:focus {
   outline: 2px solid #FFD369;
+}
+
+.form-div textarea {
+  resize: vertical;
 }
 
 .signin-title {

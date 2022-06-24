@@ -34,7 +34,7 @@ const PaymentScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(payment));
-    navigate('/order');
+    navigate('/placeorder');
   };
 
   return (
@@ -54,10 +54,10 @@ const PaymentScreen = () => {
             />
             <label htmlFor="paypal" className={paymentClasses['select-label']}>
               <span className={paymentClasses['custom-radio']}></span>
-              <span>PayPal</span>
+              <span>PayPal or Credit card</span>
             </label>
           </div>
-          <div className={paymentClasses['select-parent']}>
+          {/* <div className={paymentClasses['select-parent']}>
             <input
               type="radio"
               id="gpay"
@@ -69,7 +69,7 @@ const PaymentScreen = () => {
               <span className={paymentClasses['custom-radio']}></span>
               <span>GPay</span>
             </label>
-          </div>
+          </div> */}
           <button type="submit" className={classes.signin}>
             Proceed
           </button>

@@ -11,10 +11,16 @@ const Product = (props) => {
           <p>{props.title}</p>
         </div>
         <div>
-          <div className={classes.rating}>
-            <Rating value={props.rating} />
-            <span>{`${props.count} reviews`}</span>
-          </div>
+          {props.count > 0 && (
+            <div className={classes.rating}>
+              <Rating value={props.rating} />
+              <span className={classes.count}>
+                {Number(props.count) === 1
+                  ? '1 review'
+                  : props.count + ' reviews'}
+              </span>
+            </div>
+          )}
           <h3 className={classes.price}>{`$ ` + props.price}</h3>
         </div>
       </div>

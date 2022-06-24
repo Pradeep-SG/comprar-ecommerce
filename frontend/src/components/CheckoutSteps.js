@@ -31,7 +31,7 @@ const CheckoutSteps = ({ step2, step3 }) => {
         </div>
         <div
           className={`${classes.steps} ${step3 && classes.active}`}
-          onClick={() => navigate('/order')}
+          onClick={() => navigate('/placeorder')}
         >
           3
         </div>

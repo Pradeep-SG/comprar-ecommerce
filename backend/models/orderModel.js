@@ -7,10 +7,10 @@ const orderSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    orderItems: [
+    products: [
       {
         title: { type: String, required: true },
-        qty: { type: Number, required: true },
+        quantity: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
         product: {
@@ -21,9 +21,12 @@ const orderSchema = mongoose.Schema(
       },
     ],
     shippingAddress: {
-      address: { type: String, required: true },
-      city: { type: String, required: true },
+      name: { type: String, required: true },
+      houseNum: { type: String, required: true },
+      area: { type: String, required: true },
       postalCode: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
       country: { type: String, required: true },
     },
     paymentMethod: {
@@ -36,7 +39,7 @@ const orderSchema = mongoose.Schema(
       update_time: { type: String },
       email_address: { type: String },
     },
-    taxPrice: {
+    itemsPrice: {
       type: Number,
       required: true,
       default: 0.0,

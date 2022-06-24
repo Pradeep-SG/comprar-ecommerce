@@ -88,6 +88,30 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
+export const getUpdatedProfile = createAsyncThunk(
+  'userInfo/getUpdatedProfile',
+  async (arg, { rejectWithValue, getState }) => {
+    const { name, password } = arg;
+    const token = getState().userInfo.userInfo.userInfo.token;
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        '/api/users/profile',
+        { name, password },
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : { userInfo: {} };
@@ -150,6 +174,7 @@ const userInfoSlice = createSlice({
       state.userInfo = {
         ...state.userInfo,
         loading: false,
+        userInfo: { token: state.userInfo.userInfo.token, ...action.payload },
         user: action.payload,
       };
       localStorage.setItem('user', JSON.stringify(state));

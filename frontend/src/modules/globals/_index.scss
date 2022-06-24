@@ -10,11 +10,17 @@
 .px-2 {
   padding: 0 0.5rem;
 }
+.py-2 {
+  padding: 0.5rem 0;
+}
 .pb-4 {
   padding-bottom: 1.5rem;
 }
 .w-20p {
   width: 20%;
+}
+.w-50p {
+  width: 50%;
 }
 .text-upper {
   text-transform: uppercase;
@@ -22,6 +28,9 @@
 }
 .text-capital {
   text-transform: capitalize;
+}
+.text-lower {
+  text-transform: lowercase;
 }
 .fw-normal {
   font-weight: $fw-normal;

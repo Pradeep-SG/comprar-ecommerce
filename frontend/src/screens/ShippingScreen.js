@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/SigninScreen.module.css';
 import userInfo, { userLogin, userRegister } from '../slices/users/userInfo';
-import { saveShippingAddress } from '../slices/carts/cartDetails';
+import {
+  savePriceDetails,
+  saveShippingAddress,
+} from '../slices/carts/cartDetails';
 import CheckoutSteps from '../components/CheckoutSteps';
 
 const ShippingScreen = () => {
@@ -32,6 +35,15 @@ const ShippingScreen = () => {
     }
   }, [userInfo, navigate]);
 
+  const otherPrices = () => {
+    const itemsPrice = products
+      .reduce((prev, curr) => prev + curr.price * curr.quantity, 0)
+      .toFixed(2);
+    const shippingPrice = (Number(itemsPrice) < 50 ? 50 : 0).toFixed(2);
+    const totalPrice = (Number(itemsPrice) + Number(shippingPrice)).toFixed(2);
+    dispatch(savePriceDetails({ itemsPrice, shippingPrice, totalPrice }));
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (name && houseNum && area && postalCode && city && state && country) {
@@ -46,6 +58,7 @@ const ShippingScreen = () => {
           country,
         })
       );
+      otherPrices();
       navigate('/payment');
     } else {
       setErrMsg('Fill all details properly');

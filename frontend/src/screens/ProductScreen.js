@@ -1,25 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '../components/Rating';
-import classes from '../modules/ProductScreen.module.css';
+import classes from '../modules/ProductScreen.module.scss';
+import formClasses from '../modules/SigninScreen.module.css';
 import { fetchProductDetails } from '../slices/products/productDetails';
 import { fetchCartProduct } from '../slices/carts/cartDetails';
+import InputRating from '@mui/material/Rating';
+import Message from '../components/Message';
+import { createReview, resetReviewInfo } from '../slices/products/reviewInfo';
 
 const ProductScreen = ({ history }) => {
   const [quantity, setQuantity] = useState(1);
   const [show, setShow] = useState(false);
+  const [newRate, setNewRate] = useState(null);
+  const [comment, setComment] = useState('');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { userInfo } = useSelector((state) => state.userInfo.userInfo);
+
   const { loading, product, error } = useSelector(
     (state) => state.productDetails.productDetails
   );
 
+  const {
+    loading: reviewLoading,
+    success,
+    error: reviewError,
+  } = useSelector((state) => state.reviewInfo.reviewInfo);
+
   const { id } = useParams();
 
   useEffect(() => {
+    dispatch(resetReviewInfo());
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchProductDetails(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, success]);
 
   const addToCartHandler = () => {
     dispatch(fetchCartProduct({ id, quantity }));
@@ -36,6 +56,18 @@ const ProductScreen = ({ history }) => {
     dropDown.push(i + 1);
   }
 
+  const reviewSubmitHandler = (e) => {
+    e.preventDefault();
+    if (newRate && comment) {
+      dispatch(
+        createReview({
+          productId: product._id,
+          review: { rate: newRate, comment },
+        })
+      );
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -44,7 +76,7 @@ const ProductScreen = ({ history }) => {
         <h2>{error.message}</h2>
       ) : (
         product && (
-          <div>
+          <div className={`${classes['product-outer-div']}`}>
             <div onClick={gobackHandler}>
               <h5 className={classes.goback}>
                 <i className="fa-solid fa-angles-left"></i> Go Back
@@ -62,13 +94,17 @@ const ProductScreen = ({ history }) => {
                 <h1 className={classes.title}>{product.title}</h1>
                 <p className={classes.category}>{product.category}</p>
                 <h2 className={classes.price}>$ {product.price}</h2>
-                <div className={classes.rating}>
-                  <Rating value={product.rating ? product.rating.rate : 0} />
-                  <span className={classes.count}>{`${
-                    product.rating ? product.rating.count : 0
-                  } reviews`}</span>
-                </div>
-                <p>{product.description}</p>
+                {product.rating && product.rating.count > 0 && (
+                  <div className={classes.rating}>
+                    <Rating value={product.rating ? product.rating.rate : 0} />
+                    <span className={classes.count}>
+                      {product.rating && Number(product.rating.count) === 1
+                        ? '1 review'
+                        : product.rating.count + ' reviews'}
+                    </span>
+                  </div>
+                )}
+                <p className={classes.description}>{product.description}</p>
               </div>
               <div className={classes.stock}>
                 <div className={classes.stockdet}>
@@ -121,6 +157,84 @@ const ProductScreen = ({ history }) => {
                   </button>
                 </div>
               </div>
+            </div>
+            <div>
+              <div>
+                <h2 className={`text-upper`}>Reviews</h2>
+              </div>
+              {product.reviews && product.reviews.length ? (
+                <div className={`${classes['review-outer-div']}`}>
+                  {product.reviews.map((review) => (
+                    <div
+                      key={review._id}
+                      className={`${classes['review-div']}`}
+                    >
+                      <div>
+                        <span className={`${classes['review-name']}`}>
+                          {review.name} -{' '}
+                        </span>
+                        <Rating value={review.rate} />
+                      </div>
+                      <p className={`${classes['review-comment']}`}>
+                        {review.comment}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="w-50p">
+                  <Message variant="info">Be the first one to review</Message>
+                </div>
+              )}
+            </div>
+            <div>
+              {userInfo ? (
+                <form
+                  onSubmit={reviewSubmitHandler}
+                  className={`${formClasses['form-div']} ${classes['form-div']}`}
+                >
+                  <h3 className={formClasses['signin-title']}>
+                    Write a review
+                  </h3>
+                  {reviewError && (
+                    <Message variant="danger">{reviewError.message}</Message>
+                  )}
+                  {success && (
+                    <Message variant="success">{success.message}</Message>
+                  )}
+                  <div className={`${classes['input-rating']}`}>
+                    <span>Poor</span>
+                    <InputRating
+                      name="simple-controlled"
+                      value={newRate}
+                      onChange={(event, newRate) => {
+                        setNewRate(newRate);
+                      }}
+                    />
+                    <span>Excellent</span>
+                  </div>
+
+                  <textarea
+                    rows="1"
+                    placeholder="Comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                  <button type="submit" className={formClasses.signin}>
+                    Post
+                  </button>
+                </form>
+              ) : (
+                <div className="w-50p">
+                  <Message variant="info">
+                    Please{' '}
+                    <Link to="/signin" className="fw-bold">
+                      sign in
+                    </Link>{' '}
+                    to post a review
+                  </Message>
+                </div>
+              )}
             </div>
           </div>
         )

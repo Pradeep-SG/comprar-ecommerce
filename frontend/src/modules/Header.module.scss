@@ -1,0 +1,108 @@
+@import './globals';
+
+.nav {
+  background-color: #222831;
+  padding: 25px 10%;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.nav-brand {
+  @include flex-align-center;
+  gap: 50px;
+}
+
+.nav ul {
+  @include flex-align-center;
+  justify-content: end;
+  gap: 50px;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.nav h1, .nav a, .nav li {
+  color: #FFD369;
+  letter-spacing: 2px;
+}
+
+.profile {
+  position: relative;
+  padding: 0 5px;
+}
+
+.profile:hover{
+  color: hsl(42, 20%, 71%);
+  cursor: pointer;
+}
+
+.nav ul a:hover {
+  color: hsl(42, 20%, 71%);
+}
+
+.nav li i {
+  margin: 0 7px;
+}
+
+.dropdown {
+  text-align: start;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: -1;
+  transform: translateY(-30px);
+  transition: all 0.1s ease-in;
+  background-color: #222831;
+  color: #FFD369;
+  width: max-content;
+}
+
+.dropdown p:hover {
+  background-color: hsl(217, 10%, 50%);
+}
+
+.showDropdown {
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(0);
+}
+
+.dropdown p {
+  padding: 5px 10px 5px 5px;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.nav {
+  form {
+    @include flex-align-center;
+    gap: 5px;
+    button {
+      background: transparent;
+      border: none;
+      color: #FFD369;
+      cursor: pointer;
+      transition: all 0.2s;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+    input{
+      padding: 10px;
+      border: 1px solid rgba(34, 40, 49, 0.2);
+      border-radius: 0.2rem;
+      font-size: 16px;
+      font-weight: 500;
+      &::placeholder{
+        text-align: center;
+        font-size: 15px;
+      }
+      &:focus{
+        outline: 2px solid #FFD369;
+      }
+    }
+}
+}
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/SigninScreen.module.css';
-import { userLogin } from '../slices/users/userInfo';
+import { userLogin, userLogout } from '../slices/users/userInfo';
 
 const SigninScreen = () => {
   const [email, setEmail] = useState('');
@@ -22,8 +22,10 @@ const SigninScreen = () => {
   useEffect(() => {
     if (userInfo) {
       navigate(`/${redirect}`);
+    } else {
+      dispatch(userLogout());
     }
-  }, [redirect, userInfo, navigate]);
+  }, [redirect, userInfo, navigate, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();

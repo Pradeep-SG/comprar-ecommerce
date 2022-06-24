@@ -90,12 +90,10 @@
 
 .details {
   display: flex;
-}
-
-.details div {
-  display: flex;
   flex-direction: column;
-  width: 50%;
+  div {
+    display: flex;
+  }
 }
 
 .details .priceHead {
@@ -105,10 +103,8 @@
 .details div h3 {
   padding: 20px;
   text-align: center;
-}
-
-.details div h3 {
   border-bottom: 1px solid rgba(34, 40, 49, 0.2);
+  width: 50%;
 }
 
 .place {
@@ -117,9 +113,9 @@
   place-items: center;
 }
 
-.place button {
+.place button, .details button {
   width: 80%;
-  margin: 25px 0;
+  margin: 25px auto;
   padding: 10px 20px;
   border: none;
   background-color: #222831;
@@ -131,11 +127,29 @@
   cursor: pointer;
 }
 
-.place button:hover {
+.place button:hover, .details button:hover {
   background-color: hsl(216, 18%, 22%);
-  z-index: -5;
 }
 
 .not-link {
   cursor: default;
+}
+
+.order-summary {
+  padding: 20px;
+  text-transform: uppercase;
+  font-weight: $fw-regular;
+  border-bottom: $border-prop;
+  display: grid;
+  place-content: center;
+}
+
+.last-child h3 {
+  border-bottom: none !important;
+}
+
+.paypal {
+  width: 100%;
+  @include flex-center;
+  padding: 20px;
 }

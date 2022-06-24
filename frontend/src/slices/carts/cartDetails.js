@@ -46,12 +46,33 @@ const cartDetailSlice = createSlice({
       };
       localStorage.setItem('cartDetails', JSON.stringify(state));
     },
+    savePriceDetails(state, action) {
+      state.cartDetails = {
+        ...state.cartDetails,
+        itemsPrice: action.payload.itemsPrice,
+        shippingPrice: action.payload.shippingPrice,
+        totalPrice: action.payload.totalPrice,
+      };
+      localStorage.setItem('cartDetails', JSON.stringify(state));
+    },
     savePaymentMethod(state, action) {
       state.cartDetails = {
         ...state.cartDetails,
         paymentMethod: action.payload,
       };
       localStorage.setItem('cartDetails', JSON.stringify(state));
+    },
+    deleteShippingAndPayment(state, action) {
+      if (state.cartDetails.products) {
+        state.cartDetails = {
+          products: [...state.cartDetails.products],
+        };
+      }
+      localStorage.setItem('cartDetails', JSON.stringify(state));
+    },
+    resetCart(state, action) {
+      localStorage.removeItem('cartDetails');
+      state.cartDetails = {};
     },
   },
   extraReducers: {
@@ -76,11 +97,13 @@ const cartDetailSlice = createSlice({
         );
         state.cartDetails = {
           ...state.cartDetails,
+          loading: false,
           products: [...updatedState],
         };
       } else {
         state.cartDetails = {
           ...state.cartDetails,
+          loading: false,
           products: [...currentState, action.payload],
         };
       }
@@ -97,7 +120,13 @@ const cartDetailSlice = createSlice({
   },
 });
 
-export const { deleteItem, saveShippingAddress, savePaymentMethod } =
-  cartDetailSlice.actions;
+export const {
+  deleteItem,
+  saveShippingAddress,
+  savePriceDetails,
+  savePaymentMethod,
+  deleteShippingAndPayment,
+  resetCart,
+} = cartDetailSlice.actions;
 
 export default cartDetailSlice.reducer;
