@@ -1,3 +1,5 @@
+@import './globals';
+
 .select-parent {
   display: flex;
   input {
@@ -36,3 +38,9 @@
   position: relative;
 }
 
+@include mob-576 {
+  .select-label {
+    margin-left: 20px;
+    gap: 5px;
+  }
+}

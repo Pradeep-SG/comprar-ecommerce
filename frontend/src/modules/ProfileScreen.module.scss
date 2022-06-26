@@ -22,11 +22,11 @@
 
 .profile-outer-div {
   display: flex;
-  gap: 100px;
+  gap: 20px;
 }
 
 .order-details {
-  width: 70%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   h2 {
@@ -53,7 +53,7 @@
   }
   p {
     flex-grow: 1;
-    width: 100px;
+    width: 200px;
     padding: 20px 10px;
     border-right: $border-prop;
     &:first-child {
@@ -119,4 +119,100 @@
 
 .all-orders {
   width: 100%;
+}
+
+.my-orders-div {
+  @include flex-align-center;
+  border-bottom: $border-prop;
+  gap: 50px;
+  padding: 25px 0;
+  width: fit-content;
+  &:last-child {
+    border: none;
+  }
+  .order-img-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-right: $border-prop;
+    p {
+      padding: 0;
+      width: fit-content;
+      border: none;
+    }
+  }
+  .order-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  .order-details-sub {
+    @include flex-align-center;
+    gap: 10px;
+    width: fit-content;
+    p {
+      width: fit-content;
+      &:last-child {
+        color:hsl(120, 100%, 35%);
+        font-weight: $fw-regular;
+      }
+    }
+    i {
+      position: relative;
+      top: 1.5px;
+    }
+  }
+  .order-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    p {
+      padding: 0;
+      border: none;
+    }
+  }
+}
+
+@include max-1200 {
+  .my-orders-div {
+    gap: 20px;
+  }
+  .order-details p {
+    width: auto;
+  }
+}
+
+@include max-tablet {
+  .profile-outer-div {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    margin-top: 40px;
+  }
+  .order-details {
+    text-align: center;
+    align-items: center;
+    width: 90%;
+  }
+}
+
+@include mob-576 {
+  .order-img-div p {
+    font-size: 10px;
+  }
+  .my-orders-div {
+    .order-img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .my-orders-div .order-dates {
+    gap: 7px;
+    font-size: 14px;
+  }
+  .products-outer-div .form-div {
+    width: 95%;
+  }
 }

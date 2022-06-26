@@ -3,12 +3,13 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Rating from '../components/Rating';
 import classes from '../modules/ProductScreen.module.scss';
-import formClasses from '../modules/SigninScreen.module.css';
+import formClasses from '../modules/SigninScreen.module.scss';
 import { fetchProductDetails } from '../slices/products/productDetails';
 import { fetchCartProduct } from '../slices/carts/cartDetails';
 import InputRating from '@mui/material/Rating';
 import Message from '../components/Message';
 import { createReview, resetReviewInfo } from '../slices/products/reviewInfo';
+import Loader from '../components/Loader';
 
 const ProductScreen = ({ history }) => {
   const [quantity, setQuantity] = useState(1);
@@ -25,17 +26,15 @@ const ProductScreen = ({ history }) => {
     (state) => state.productDetails.productDetails
   );
 
-  const {
-    loading: reviewLoading,
-    success,
-    error: reviewError,
-  } = useSelector((state) => state.reviewInfo.reviewInfo);
+  const { success, error: reviewError } = useSelector(
+    (state) => state.reviewInfo.reviewInfo
+  );
 
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(resetReviewInfo());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dispatch(fetchProductDetails(id));
@@ -71,14 +70,14 @@ const ProductScreen = ({ history }) => {
   return (
     <>
       {loading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : error ? (
         <h2>{error.message}</h2>
       ) : (
         product && (
           <div className={`${classes['product-outer-div']}`}>
-            <div onClick={gobackHandler}>
-              <h5 className={classes.goback}>
+            <div>
+              <h5 className={classes.goback} onClick={gobackHandler}>
                 <i className="fa-solid fa-angles-left"></i> Go Back
               </h5>
             </div>
@@ -90,77 +89,83 @@ const ProductScreen = ({ history }) => {
                   alt={product.title}
                 />
               </div>
-              <div className={classes.middle}>
-                <h1 className={classes.title}>{product.title}</h1>
-                <p className={classes.category}>{product.category}</p>
-                <h2 className={classes.price}>$ {product.price}</h2>
-                {product.rating && product.rating.count > 0 && (
-                  <div className={classes.rating}>
-                    <Rating value={product.rating ? product.rating.rate : 0} />
-                    <span className={classes.count}>
-                      {product.rating && Number(product.rating.count) === 1
-                        ? '1 review'
-                        : product.rating.count + ' reviews'}
-                    </span>
-                  </div>
-                )}
-                <p className={classes.description}>{product.description}</p>
-              </div>
-              <div className={classes.stock}>
-                <div className={classes.stockdet}>
-                  <div className={classes.stocktitle}>
-                    <p>Status</p>
-                    {product.stock > 0 && <p>Quantity</p>}
-                  </div>
-                  <div className={classes.stockdesc}>
-                    <p>{product.stock > 0 ? 'In Stock' : 'Out of stock'}</p>
-                    {product.stock > 0 && (
-                      <>
-                        <div className={classes.dropdownqtyParent}>
-                          <p
-                            className={`${classes.dropdownqty}`}
-                            onClick={() => setShow(!show)}
-                          >
-                            {quantity}
-                            <i className="fa-solid fa-caret-down"></i>
-                          </p>
-                        </div>
-                        <div
-                          className={`${classes.dropdown} ${
-                            show && classes.showDropdown
-                          }`}
-                        >
-                          {dropDown.map((x) => (
-                            <p
-                              key={x}
-                              onClick={() => {
-                                setQuantity(x);
-                                setShow(false);
-                              }}
-                            >
-                              {x}
-                            </p>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
+              <div className={classes['middle-stock']}>
+                <div className={classes.middle}>
+                  <h1 className={classes.title}>{product.title}</h1>
+                  <p className={classes.category}>{product.category}</p>
+                  <h2 className={classes.price}>$ {product.price}</h2>
+                  {product.rating && product.rating.count > 0 && (
+                    <div className={classes.rating}>
+                      <Rating
+                        value={product.rating ? product.rating.rate : 0}
+                      />
+                      <span className={classes.count}>
+                        {product.rating && Number(product.rating.count) === 1
+                          ? '1 review'
+                          : product.rating.count + ' reviews'}
+                      </span>
+                    </div>
+                  )}
+                  <p className={classes.description}>{product.description}</p>
                 </div>
-                <div className={classes.addButton}>
-                  <button
-                    className={`${classes.addtocart} ${
-                      product.stock <= 0 && classes.disabled
-                    }`}
-                    onClick={() => product.stock > 0 && addToCartHandler()}
-                  >
-                    Add to cart
-                  </button>
+                <div className={classes.stock}>
+                  <div className={classes.stockdet}>
+                    <div className={classes.stocktitle}>
+                      <p>Status</p>
+                      {product.stock > 0 && <p>Quantity</p>}
+                    </div>
+                    <div className={classes.stockdesc}>
+                      <p>{product.stock > 0 ? 'In Stock' : 'Out of stock'}</p>
+                      {product.stock > 0 && (
+                        <>
+                          <div className={classes.dropdownqtyParent}>
+                            <p
+                              className={`${classes.dropdownqty}`}
+                              onClick={() => setShow(!show)}
+                            >
+                              {quantity}
+                              <i className="fa-solid fa-caret-down"></i>
+                            </p>
+                          </div>
+                          <div
+                            className={`${classes.dropdown} ${
+                              show && classes.showDropdown
+                            }`}
+                          >
+                            {dropDown.map((x) => (
+                              <p
+                                key={x}
+                                onClick={() => {
+                                  setQuantity(x);
+                                  setShow(false);
+                                }}
+                              >
+                                {x}
+                              </p>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className={classes.addButton}>
+                    <button
+                      className={`${classes.addtocart} ${
+                        product.stock <= 0 && classes.disabled
+                      }`}
+                      onClick={() => product.stock > 0 && addToCartHandler()}
+                    >
+                      Add to cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             <div>
               <div>
-                <h2 className={`text-upper`}>Reviews</h2>
+                <h2 className={`text-upper ${classes['review-title']}`}>
+                  Reviews
+                </h2>
               </div>
               {product.reviews && product.reviews.length ? (
                 <div className={`${classes['review-outer-div']}`}>
@@ -182,7 +187,7 @@ const ProductScreen = ({ history }) => {
                   ))}
                 </div>
               ) : (
-                <div className="w-50p">
+                <div className={classes['no-review']}>
                   <Message variant="info">Be the first one to review</Message>
                 </div>
               )}
@@ -193,7 +198,7 @@ const ProductScreen = ({ history }) => {
                   onSubmit={reviewSubmitHandler}
                   className={`${formClasses['form-div']} ${classes['form-div']}`}
                 >
-                  <h3 className={formClasses['signin-title']}>
+                  <h3 className={`${formClasses['signin-title']}`}>
                     Write a review
                   </h3>
                   {reviewError && (
@@ -203,7 +208,7 @@ const ProductScreen = ({ history }) => {
                     <Message variant="success">{success.message}</Message>
                   )}
                   <div className={`${classes['input-rating']}`}>
-                    <span>Poor</span>
+                    <span className={`${classes['star-meaning']}`}>Poor</span>
                     <InputRating
                       name="simple-controlled"
                       value={newRate}
@@ -211,7 +216,9 @@ const ProductScreen = ({ history }) => {
                         setNewRate(newRate);
                       }}
                     />
-                    <span>Excellent</span>
+                    <span className={`${classes['star-meaning']}`}>
+                      Excellent
+                    </span>
                   </div>
 
                   <textarea
@@ -225,7 +232,7 @@ const ProductScreen = ({ history }) => {
                   </button>
                 </form>
               ) : (
-                <div className="w-50p">
+                <div className={classes['no-review']}>
                   <Message variant="info">
                     Please{' '}
                     <Link to="/signin" className="fw-bold">

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from '../modules/SigninScreen.module.css';
+import classes from '../modules/SigninScreen.module.scss';
 import paymentClasses from '../modules/PaymentScreen.module.scss';
-import userInfo, { userLogin, userRegister } from '../slices/users/userInfo';
-import {
-  savePaymentMethod,
-  saveShippingAddress,
-} from '../slices/carts/cartDetails';
+import { savePaymentMethod } from '../slices/carts/cartDetails';
 import CheckoutSteps from '../components/CheckoutSteps';
 
 const PaymentScreen = () => {

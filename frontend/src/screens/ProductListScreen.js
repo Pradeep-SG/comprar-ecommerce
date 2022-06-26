@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/UsersListScreen.module.scss';
-import profileClasses from '../modules/ProfileScreen.module.scss';
-import { deleteUserById, getUsersList } from '../slices/users/usersList';
 import {
   deleteProductById,
   fetchProductList,
@@ -13,6 +11,7 @@ import {
   resetProductDetailsAdmin,
 } from '../slices/products/productDetailsAdmin';
 import { Pagination } from '@mui/material';
+import Loader from '../components/Loader';
 
 const ProductListScreen = () => {
   const location = useLocation();
@@ -72,69 +71,81 @@ const ProductListScreen = () => {
   };
 
   return (
-    <div
-      className={`${profileClasses['order-details']} ${classes['user-details']} ${classes['product-details']}`}
-    >
+    <div className={`${classes['user-details']} ${classes['product-details']}`}>
       <div className={`${classes['create-product-div']}`}>
         <h2>Products</h2>
         <button
-          className={`${profileClasses.button}`}
+          className={`${classes['create-button']}`}
           onClick={createProductHandler}
         >
           Create Product
         </button>
       </div>
       {loading || deleteProductLoading || deleteProductSuccess ? (
-        <h3>Loading...</h3>
+        <Loader />
       ) : (
         <>
           {products && products.length ? (
             <>
-              <div
-                className={`${profileClasses['order-row']} ${classes['order-row']}`}
-              >
-                <p className={classes['product-id']}>Id</p>
-                <p>Name</p>
-                <p className={classes.price}>Price</p>
-                <p className={classes.admin}>Category</p>
-                <div className={classes['modify-buttons']}>
-                  <div>
-                    <i
-                      className={`fa-solid fa-pen-to-square ${classes.black}`}
-                    ></i>
+              <div className={classes['table-div']}>
+                <div className={`${classes['table-list']}`}>
+                  <div
+                    className={`${classes['body-row']} ${classes['table-list-head']}`}
+                  >
+                    <p className={classes['body-id']}>Id</p>
+                    <p className={classes['body-title']}>Name</p>
+                    <p className={classes.price}>Price</p>
+                    <p className={`text-upper ${classes['head-category']}`}>
+                      Category
+                    </p>
+                    <div
+                      className={`${classes['modify-buttons']} ${classes['hide-buttons']}`}
+                    >
+                      <div>
+                        <i
+                          className={`fa-solid fa-pen-to-square ${classes.black}`}
+                        ></i>
+                      </div>
+                      <div>
+                        <i className="fa-solid fa-trash red"></i>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <i className="fa-solid fa-trash red"></i>
-                  </div>
+                  {products.map((product) => (
+                    <div
+                      key={product._id}
+                      className={`${classes['body-row']} ${classes['body-row-sub']}`}
+                    >
+                      <p className={classes['body-id']}>{product._id}</p>
+                      <p className={classes['body-title']}>{product.title}</p>
+                      <p className={classes.price}>
+                        $ {product.price.toFixed(2)}
+                      </p>
+
+                      <p className={classes.category}>{product.category}</p>
+                      <div className={classes['modify-buttons']}>
+                        <div
+                          onClick={() =>
+                            navigate(`/admin/products/${product._id}/edit`)
+                          }
+                        >
+                          <i
+                            className={`fa-solid fa-pen-to-square ${classes.black}`}
+                          ></i>
+                        </div>
+                        <div
+                          onClick={() => {
+                            deleteProductHandler(product._id);
+                          }}
+                          className={classes.delete}
+                        >
+                          <i className="fa-solid fa-trash red"></i>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              {products.map((product) => (
-                <div key={product._id} className={profileClasses['order-row']}>
-                  <p className={classes['product-id']}>{product._id}</p>
-                  <p>{product.title}</p>
-                  <p className={classes.price}>$ {product.price.toFixed(2)}</p>
-
-                  <p className={classes.admin}>{product.category}</p>
-                  <div className={classes['modify-buttons']}>
-                    <div
-                      onClick={() =>
-                        navigate(`/admin/products/${product._id}/edit`)
-                      }
-                    >
-                      <i
-                        className={`fa-solid fa-pen-to-square ${classes.black}`}
-                      ></i>
-                    </div>
-                    <div
-                      onClick={() => {
-                        deleteProductHandler(product._id);
-                      }}
-                    >
-                      <i className="fa-solid fa-trash red"></i>
-                    </div>
-                  </div>
-                </div>
-              ))}
               {totalPageCount > 1 && (
                 <div className={`${classes['pagination-div']}`}>
                   <Pagination

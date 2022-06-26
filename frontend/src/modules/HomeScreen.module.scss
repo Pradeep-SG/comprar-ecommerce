@@ -12,6 +12,7 @@
   color: #393E46;
   cursor: pointer;
   margin-bottom: 30px;
+  width: fit-content;
 }
 
 .grid {
@@ -21,24 +22,6 @@
   justify-items: stretch;
   align-items: stretch;
   gap: 30px;
-}
-
-@include laptop1400 {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@include tablet {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@include mobile {
-  .grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .pagination-div {
@@ -86,17 +69,76 @@
 
 .carousel {
   margin-bottom: 40px;
-  [aria-label="Previous"], [aria-label="Next"] {
-    background: transparent;
-    color: black;
-    &:hover {
-      background: hsl(0, 0%, 70%) !important;
-      color: #222831;
-      opacity: 1 !important;
+}
+
+@include laptop-1400 {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@include laptop-1200 {
+  .product .details .title {
+    width: 200px;
+  }
+}
+
+@include tablet {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .product .details .title {
+    width: 200px;
+  }
+}
+
+@include mobile {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .product {
+    .image-div {
+      width: 40%;
+    }
+    .image {
+      width: 100px;
+      height: 100px;
+    }
+    .details .title {
+      width: 200px;
     }
   }
-  div:hover > button {
-    background: transparent;
-    opacity: 1;
+}
+
+@include mob-576 {
+  h1 {
+    font-size: 1rem;
+  }
+  .product {
+    position: relative;
+    justify-content: center;
+    .image-div {
+      width: 40%;
+    }
+    .image {
+      width: 100px;
+      height: 100px;
+    }
+    .details {
+      .title {
+        position: absolute;
+        left: 25px;
+        padding-right: 50px;
+        bottom: 15px;
+        width: 100%;
+        text-align: center;
+      }
+      .desc {
+        opacity: 0;
+      }
+      .price {
+        padding-bottom: 20px;
+      }
+    }
   }
 }

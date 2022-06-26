@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import classes from '../modules/CartScreen.module.scss';
-import CheckoutSteps from '../components/CheckoutSteps';
-import { createNewOrder, getOrderDetails } from '../slices/orders/orderInfo';
+import { getOrderDetails } from '../slices/orders/orderInfo';
 import { PayPalButton } from 'react-paypal-button-v2';
 import Message from '../components/Message';
 import axios from 'axios';
@@ -12,7 +11,7 @@ import {
   resetOrderDeliver,
   updateOrderDeliver,
 } from '../slices/orders/orderDeliver';
-import { resetCart } from '../slices/carts/cartDetails';
+import Loader from '../components/Loader';
 
 const OrderScreen = () => {
   const { id } = useParams();
@@ -54,7 +53,6 @@ const OrderScreen = () => {
       dispatch(orderPayReset());
       dispatch(resetOrderDeliver());
       dispatch(getOrderDetails(id));
-      dispatch(resetCart());
     } else if (!orderInfo.isPaid) {
       if (!window.paypal) addPayPalScript();
       else setSdkReady(true);
@@ -68,7 +66,7 @@ const OrderScreen = () => {
       dispatch(orderPayReset());
       dispatch(getOrderDetails(id));
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(updateOrderPay({ orderId: orderInfo._id, paymentResult }));
@@ -83,34 +81,43 @@ const OrderScreen = () => {
       {error ? (
         <h3>{error.message ? error.message : 'Error 404'}</h3>
       ) : !orderInfo || !userInfo ? (
-        <h3>Loading...</h3>
+        <Loader />
       ) : (
-        <div className={classes.outerdiv}>
-          <div className={classes.cartDetails}>
+        <div className={classes['outer-div']}>
+          <div className={classes['cart-details']}>
             <div className="bb pb-4">
               <h3 className="text-upper my-2">Order Details</h3>
-              <p className="fw-regular text-captal">
-                Ordered By :{' '}
-                <span className="mx-2 fw-bold">
-                  {orderInfo.user.name} -{' '}
+              <div className={classes['order-by']}>
+                <p className="fw-regular text-captal">
+                  <span>Ordered By : </span>
+                  <span className={`fw-bold ${classes['order-indent']}`}>
+                    {orderInfo.user.name} -{' '}
+                  </span>
                   <a
-                    className="mx-2 text-lower"
+                    className={`fw-bold text-lower ${classes['order-indent']}`}
                     href={`mailto:${orderInfo.user.email}`}
                   >
                     {orderInfo.user.email}
                   </a>
-                </span>
-              </p>
-              <p className="fw-regular">
-                Reference Number :
-                <span className="text-upper mx-2 fw-bold">{id}</span>
+                </p>
+              </div>
+              <p className={`fw-regular ${classes['ref-num']}`}>
+                <span>Reference Number :</span>
+                <span className="text-upper fw-bold">{id}</span>
               </p>
             </div>
             <div className="bb pb-4">
               <h3 className="text-upper my-2">Shipping Details</h3>
-              <p className="fw-regular">
-                {orderInfo.shippingAddress &&
-                  `${orderInfo.shippingAddress.name}, ${orderInfo.shippingAddress.houseNum}, ${orderInfo.shippingAddress.area}, ${orderInfo.shippingAddress.city} - ${orderInfo.shippingAddress.postalCode} `}
+              <p className={`fw-regular ${classes['address']}`}>
+                {orderInfo.shippingAddress && (
+                  <>
+                    <span>{orderInfo.shippingAddress.name}, </span>
+                    <span>{orderInfo.shippingAddress.houseNum}, </span>
+                    <span>{orderInfo.shippingAddress.area}, </span>
+                    <span>{orderInfo.shippingAddress.city}, </span>
+                    <span>{orderInfo.shippingAddress.postalCode}</span>
+                  </>
+                )}
               </p>
               <p className="fw-regular">{`${orderInfo.shippingAddress.state}, ${orderInfo.shippingAddress.country}`}</p>
               {orderInfo.isDelivered ? (
@@ -134,29 +141,33 @@ const OrderScreen = () => {
               )}
             </div>
             {orderInfo.products.map((product) => (
-              <div key={product.product} className={classes.cartRow}>
+              <div key={product.product} className={classes['cart-row']}>
                 <img
-                  className={`${classes.cartImage} ${classes['not-link']}`}
+                  className={`${classes['cart-image']} ${classes['not-link']}`}
                   src={product.image}
                   alt=""
                 />
                 <p className={`${classes.title} ${classes['not-link']}`}>
                   {product.title}
                 </p>
-                <p className="mx-2 w-20p">
-                  {product.quantity} <span className="mx-2">x</span> ${' '}
-                  {product.price.toFixed(2)}
-                </p>
-                <span className="mx-2">=</span>
-                <p className="mx-2">
-                  $ {(product.quantity * product.price).toFixed(2)}
-                </p>
+                <div className={classes['price-calc']}>
+                  <p className="">
+                    {product.quantity} <span className="">x</span> ${' '}
+                    {product.price.toFixed(2)}
+                  </p>
+                  <span className="">=</span>
+                  <p className="">
+                    $ {(product.quantity * product.price).toFixed(2)}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
-          <div className={classes.priceDetails}>
+          <div className={classes['price-details']}>
             <div className={classes.details}>
-              <div className={classes['order-summary']}>Order Summary</div>
+              <div className={classes['order-summary']}>
+                <h2>Order Summary</h2>
+              </div>
               <div>
                 <h3 className={classes.priceHead}>Total </h3>
                 <h3>
@@ -191,7 +202,7 @@ const OrderScreen = () => {
               {!orderInfo.isPaid && orderInfo.user._id === userInfo._id && (
                 <div className={classes.paypal}>
                   {!sdkReady ? (
-                    <h3> Loading... </h3>
+                    <Loader />
                   ) : (
                     <PayPalButton
                       amount={orderInfo.totalPrice}

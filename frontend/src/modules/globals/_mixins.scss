@@ -9,14 +9,42 @@
   align-items: center;
 }
 
-@mixin laptop1400 {
+@mixin grid-center {
+  display: grid;
+  place-content: center;
+}
+
+@mixin button-prop {
+  text-transform: uppercase;
+  margin: 10px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #222831;
+  color: #FFD369;
+  text-transform: uppercase;
+  font-weight: $fw-normal;
+  letter-spacing: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  &:hover {
+    background-color: hsl(216, 18%, 22%);
+  }
+}
+
+@mixin laptop-1400 {
   @media screen and (min-width:992px) and (max-width: 1400px) {
     @content
   }
 }
 
-@mixin laptop1200 {
+@mixin laptop-1200 {
   @media screen and (min-width:992px) and (max-width: 1200px) {
+    @content
+  }
+}
+
+@mixin max-1200 {
+  @media screen and (max-width: 1200px) {
     @content
   }
 }
@@ -27,8 +55,20 @@
   }
 }
 
+@mixin max-tablet {
+  @media screen and (max-width: 992px) {
+    @content
+  }
+}
+
 @mixin mobile {
   @media screen and (max-width: 768px) {
+    @content
+  }
+}
+
+@mixin mob-576 {
+  @media screen and (max-width: 576px) {
     @content
   }
 }

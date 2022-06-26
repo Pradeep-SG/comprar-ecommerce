@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from '../modules/SigninScreen.module.css';
-import userInfo, { userLogin, userRegister } from '../slices/users/userInfo';
+import classes from '../modules/SigninScreen.module.scss';
 import {
   savePriceDetails,
   saveShippingAddress,

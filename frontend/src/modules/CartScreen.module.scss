@@ -1,11 +1,11 @@
 @import './globals';
 
-.outerdiv {
+.outer-div {
   display: flex;
   gap: 30px;
 }
 
-.cartDetails {
+.cart-details {
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   font-weight: 600;
 }
 
-.cartRow {
+.cart-row {
   display: flex;
   align-items: stretch;
   gap: 20px;
@@ -59,7 +59,7 @@
   transform: scale(0.9);
 }
 
-.cartImage {
+.cart-image {
   width: 100px;
   height: 100px;
   object-fit: contain;
@@ -80,7 +80,7 @@
   transition: all 0.2s;
 }
 
-.priceDetails {
+.price-details {
   width: 40%;
   height: fit-content;
   border: 1px solid rgba(34, 40, 49, 0.2);
@@ -152,4 +152,121 @@
   width: 100%;
   @include flex-center;
   padding: 20px;
+}
+
+.price-calc {
+  text-align: end;
+  @include flex-align-center;
+  gap: 10px;
+  width: 300px;
+}
+
+.order-by p{
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.ref-num {
+  display: flex;
+}
+
+@include max-1200 {
+  .outer-div {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cart-details {
+    width: 100%; 
+  }
+  .cart-row {
+    justify-content: space-between;
+  }
+  .title {
+    flex-grow: 1;
+  }
+  .price-details {
+    width: 70%;
+  }
+}
+
+@include mobile {
+  .buttons {
+    gap: 10px;
+  }
+  .price-calc {
+    width: 250px;
+  }
+}
+
+@include mob-576 {
+  .cart-details h3 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .cart-row {
+    position: relative;
+    justify-content: center;
+    gap: 5px;
+    .cart-image {
+      height: 70px;
+      width: 70px;
+    }
+    .title {
+      flex-grow: 1;
+      display:inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: none;
+      font-size: 14px;
+      align-self: flex-start;
+    }
+    .price-calc {
+      width: 70%;
+      position: absolute;
+      bottom: 25px;
+      left: 75px;
+      font-size: 15px;
+    }
+    .price {
+      position: absolute;
+      left: 75px;
+      bottom: 25px;
+      border: none;
+    }
+    .buttons {
+      position: absolute;
+      bottom: 25px;
+      right: 20px;
+      button {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+  .delete {
+    display: none;
+  }
+  .price-details {
+    width: 95%;
+    font-size: 10px;
+  }
+  .order-by p{
+    flex-direction: column;
+    .order-indent {
+      padding-left: 25px;
+    }
+  }
+  .ref-num {
+    flex-direction: column;
+    span:last-child {
+      padding-left: 25px;
+      font-size: 14px;
+    }
+  }
+  .address {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from '../modules/SigninScreen.module.css';
+import classes from '../modules/SigninScreen.module.scss';
 import profileClasses from '../modules/ProfileScreen.module.scss';
 import {
   fetchProductDetails,
@@ -13,6 +13,7 @@ import {
   updateProduct,
 } from '../slices/products/productDetailsAdmin';
 import axios from 'axios';
+import Loader from '../components/Loader';
 
 const ProductEditScreen = () => {
   const { id } = useParams();
@@ -27,18 +28,10 @@ const ProductEditScreen = () => {
 
   const {
     loading: productLoading,
-    productDetailsAdmin,
     success,
     error,
   } = useSelector((state) => state.productDetailsAdmin.productDetailsAdmin);
 
-  const { loading: myOrdersLoading, myOrders } = useSelector(
-    (state) => state.getMyOrders.myOrders
-  );
-
-  const [changeName, setChangeName] = useState(false);
-  const [changeEmail, setChangeEmail] = useState(false);
-  const [changeAdmin, setChangeAdmin] = useState(false);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState('');
@@ -54,7 +47,7 @@ const ProductEditScreen = () => {
   useEffect(() => {
     dispatch(resetProductDetails());
     dispatch(resetProductDetailsAdmin());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setIsChange(true);
@@ -66,7 +59,7 @@ const ProductEditScreen = () => {
       dispatch(resetProductDetailsAdmin());
       setIsChange(false);
     }
-  }, [success]);
+  }, [success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!userInfo) {
@@ -132,7 +125,7 @@ const ProductEditScreen = () => {
         {updateSuccess && <Message variant="success">Product updated</Message>}
         {error && <Message variant="danger">{error.message}</Message>}
         {productLoading || loading ? (
-          <h3>Loading...</h3>
+          <Loader />
         ) : (
           <>
             <div>

@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from '../modules/SigninScreen.module.css';
+import classes from '../modules/SigninScreen.module.scss';
 import profileClasses from '../modules/ProfileScreen.module.scss';
-import {
-  updateProfile,
-  userLogin,
-  userProfile,
-  userRegister,
-} from '../slices/users/userInfo';
+import { userProfile } from '../slices/users/userInfo';
 import Message from '../components/Message';
-import { getMyOrders } from '../slices/orders/myOrders';
-import orderInfo from '../slices/orders/orderInfo';
 import {
   getUserById,
   resetUserInfoAdmin,
   updateProfileAdmin,
 } from '../slices/users/userInfoAdmin';
+import Loader from '../components/Loader';
 
 const UserEditScreen = () => {
   const { id } = useParams();
@@ -32,22 +26,15 @@ const UserEditScreen = () => {
     error,
   } = useSelector((state) => state.userInfoAdmin.userInfoAdmin);
 
-  const { loading: myOrdersLoading, myOrders } = useSelector(
-    (state) => state.getMyOrders.myOrders
-  );
-
   const [changeName, setChangeName] = useState(false);
   const [changeEmail, setChangeEmail] = useState(false);
-  const [changeAdmin, setChangeAdmin] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isChange, setIsChange] = useState(false);
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     dispatch(resetUserInfoAdmin());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!userInfo) {
@@ -82,7 +69,7 @@ const UserEditScreen = () => {
         {success && <Message variant="success">User updated</Message>}
         {error && <Message variant="danger">{error.message}</Message>}
         {userLoading ? (
-          <h3>Loading...</h3>
+          <Loader />
         ) : (
           <>
             {!changeEmail ? (

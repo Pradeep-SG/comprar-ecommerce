@@ -1,3 +1,5 @@
+@import './globals';
+
 .outer-div {
   height: 75vh;
   display: flex;
@@ -73,4 +75,11 @@
   margin-left: 10px;
   cursor: pointer;
   font-weight: 600;
+}
+
+@include mob-576 {
+  .form-div {
+    width: 95%;
+    padding: 40px 10px;
+  }
 }

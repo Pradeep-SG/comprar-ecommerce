@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from '../modules/SigninScreen.module.css';
+import classes from '../modules/SigninScreen.module.scss';
 import { userLogin, userLogout, userRegister } from '../slices/users/userInfo';
+import Message from '../components/Message';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -42,8 +43,8 @@ const RegisterScreen = () => {
     <div className={classes['outer-div']}>
       <form onSubmit={submitHandler} className={classes['form-div']}>
         <h3 className={classes['signin-title']}>Sign Up</h3>
-        {errMsg && <p style={{ color: 'red' }}>* {errMsg}</p>}
-        {error && <p style={{ color: 'red' }}>* {error.message}</p>}
+        {errMsg && <Message variant="danger">{errMsg}</Message>}
+        {error && <Message variant="danger">{error.message}</Message>}
         <input
           type="text"
           placeholder="Name"
@@ -77,9 +78,7 @@ const RegisterScreen = () => {
             <span
               onClick={() =>
                 navigate(
-                  redirect !== '/'
-                    ? `/register?redirect=${redirect}`
-                    : '/register'
+                  redirect !== '' ? `/signin?redirect=${redirect}` : '/signin'
                 )
               }
             >

@@ -10,6 +10,7 @@
   text-transform: uppercase;
   color: #393E46;
   cursor: pointer;
+  width: fit-content;
 }
 
 .container {
@@ -26,6 +27,10 @@
   border: 2px solid #EEEEEE;
   border-radius: 1rem;
   padding: 20px;
+}
+
+.middle-stock {
+  flex-grow: 1;
 }
 
 .middle {
@@ -196,7 +201,6 @@
 }
 
 .form-div {
-  margin: 0;
   width: 60%;
   h3 {
     text-align: start;
@@ -206,4 +210,67 @@
 .input-rating {
   @include flex-align-center;
   gap: 10px;
+}
+
+.middle-stock {
+  display: flex;
+  gap: 20px;
+  div:first-child {
+    flex-grow: 1;
+  }
+}
+
+.no-review {
+  width: 60%;
+}
+
+@include laptop-1400 {
+  .middle-stock {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .review-outer-div, .form-div, .no-review {
+    width: 70%;
+  }
+}
+
+@include max-tablet {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  .review-outer-div, .form-div, .no-review {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@include mobile {
+  .image {
+    width: 250px;
+    height: 250px;
+  }
+  .middle-stock {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+  .review-title, .form-div h3 {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .form-div {
+    .input-rating {
+      .star-meaning {
+        display: none;
+      }
+      justify-content: center;
+    }
+  }
+  .review-outer-div .review-comment {
+    text-align: start;
+    padding: 3px 10px;
+  }
 }

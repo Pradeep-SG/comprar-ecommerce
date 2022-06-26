@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import classes from '../modules/CartScreen.module.scss';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createNewOrder } from '../slices/orders/orderInfo';
+import { resetCart } from '../slices/carts/cartDetails';
+import Loader from '../components/Loader';
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -20,21 +22,22 @@ const PlaceOrderScreen = () => {
 
   const { userInfo } = useSelector((state) => state.userInfo.userInfo);
 
-  const { orderId, error } = useSelector((state) => state.orderInfo.orderInfo);
+  const { orderId } = useSelector((state) => state.orderInfo.orderInfo);
 
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin');
+    } else if (orderId) {
+      dispatch(resetCart());
+      navigate(`/order/${orderId._id}`);
     } else if (!addr) {
       navigate('/shipping');
     } else if (!paymentMethod) {
       navigate('/payment');
     } else if (!products || !products.length) {
       navigate('/cart');
-    } else if (orderId) {
-      navigate(`/order/${orderId._id}`);
     }
-  }, [userInfo, navigate, addr, products, orderId]);
+  }, [userInfo, navigate, addr, products, orderId, paymentMethod, dispatch]);
 
   const placeOrder = () => {
     dispatch(
@@ -53,15 +56,22 @@ const PlaceOrderScreen = () => {
     <>
       <CheckoutSteps step2 step3 />
       {!products || !addr ? (
-        <h3>Loading...</h3>
+        <Loader />
       ) : (
-        <div className={classes.outerdiv}>
-          <div className={classes.cartDetails}>
+        <div className={classes['outer-div']}>
+          <div className={classes['cart-details']}>
             <div className="bb pb-4">
               <h3 className="text-upper my-2">Shipping Details</h3>
-              <p className="fw-regular">
-                {addr &&
-                  `${addr.name}, ${addr.houseNum}, ${addr.area}, ${addr.city} - ${addr.postalCode} `}
+              <p className={`fw-regular ${classes['address']}`}>
+                {addr && (
+                  <>
+                    <span>{addr.name}, </span>
+                    <span>{addr.houseNum}, </span>
+                    <span>{addr.area}, </span>
+                    <span>{addr.city}, </span>
+                    <span>{addr.postalCode}</span>
+                  </>
+                )}
               </p>
               <p className="fw-regular">{`${addr.state}, ${addr.country}`}</p>
             </div>
@@ -72,27 +82,29 @@ const PlaceOrderScreen = () => {
               </p>
             </div>
             {products.map((product) => (
-              <div key={product.product} className={classes.cartRow}>
+              <div key={product.product} className={classes['cart-row']}>
                 <img
-                  className={`${classes.cartImage} ${classes['not-link']}`}
+                  className={`${classes['cart-image']} ${classes['not-link']}`}
                   src={product.image}
                   alt=""
                 />
                 <p className={`${classes.title} ${classes['not-link']}`}>
                   {product.title}
                 </p>
-                <p className="mx-2 w-20p">
-                  {product.quantity} <span className="mx-2">x</span> ${' '}
-                  {product.price.toFixed(2)}
-                </p>
-                <span className="mx-2">=</span>
-                <p className="mx-2">
-                  $ {(product.quantity * product.price).toFixed(2)}
-                </p>
+                <div className={classes['price-calc']}>
+                  <p className="">
+                    {product.quantity} <span className="">x</span> ${' '}
+                    {product.price.toFixed(2)}
+                  </p>
+                  <span className="">=</span>
+                  <p className="">
+                    $ {(product.quantity * product.price).toFixed(2)}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
-          <div className={classes.priceDetails}>
+          <div className={classes['price-details']}>
             <div className={classes.details}>
               <div>
                 <h3 className={classes.priceHead}>Total </h3>

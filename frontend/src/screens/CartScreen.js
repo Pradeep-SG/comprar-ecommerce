@@ -34,14 +34,18 @@ const CartScreen = () => {
   const incrementHandler = (id, quantity, stock) => {
     quantity++;
     if (quantity === 6) {
-      setModalText("Can't add more than 5 items");
+      setModalText(
+        'You cannot add more than five products of same. Try placing multiple orders. Sorry for the inconvenience'
+      );
       setShow(true);
       return;
     }
     if (quantity <= stock) {
       dispatch(fetchCartProduct({ id, quantity }));
     } else if (quantity === stock + 1) {
-      setModalText('Out of stock');
+      setModalText(
+        'There are only limited stock(s) for this product and the product might be out of stock right now. Please try again after some time'
+      );
       setShow(true);
     }
   };
@@ -60,12 +64,13 @@ const CartScreen = () => {
       {!products || !products.length ? (
         <h3>Cart is empty</h3>
       ) : (
-        <div className={classes.outerdiv}>
-          <div className={classes.cartDetails}>
+        <div className={classes['outer-div']}>
+          <div className={classes['cart-details']}>
+            <h3 className="text-upper">Cart</h3>
             {products.map((product) => (
-              <div key={product.product} className={classes.cartRow}>
+              <div key={product.product} className={classes['cart-row']}>
                 <img
-                  className={classes.cartImage}
+                  className={classes['cart-image']}
                   src={product.image}
                   alt={product.title}
                   onClick={() => navigate(`/product/${product.product}`)}
@@ -107,7 +112,7 @@ const CartScreen = () => {
               </div>
             ))}
           </div>
-          <div className={classes.priceDetails}>
+          <div className={classes['price-details']}>
             <div className={classes.details}>
               <div>
                 <h3 className={classes.priceHead}>Total </h3>

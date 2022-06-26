@@ -5,6 +5,7 @@
   padding: 25px 10%;
   display: flex;
   gap: 50px;
+  justify-content: space-between;
   align-items: center;
   text-transform: uppercase;
 }
@@ -16,10 +17,13 @@
 
 .nav ul {
   @include flex-align-center;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 50px;
-  width: 100%;
   font-size: 0.8rem;
+}
+
+ul.mobile-ul {
+  display: none;
 }
 
 .nav h1, .nav a, .nav li {
@@ -29,7 +33,6 @@
 
 .profile {
   position: relative;
-  padding: 0 5px;
 }
 
 .profile:hover{
@@ -45,6 +48,11 @@
   margin: 0 7px;
 }
 
+.dropdown-title, .cart-div {
+  @include flex-align-center;
+  gap: 5px;
+}
+
 .dropdown {
   text-align: start;
   position: absolute;
@@ -58,6 +66,8 @@
   background-color: #222831;
   color: #FFD369;
   width: max-content;
+  border: 1px solid #EEEEEE;
+  border-bottom: none;
 }
 
 .dropdown p:hover {
@@ -66,7 +76,7 @@
 
 .showDropdown {
   opacity: 1;
-  z-index: 1;
+  z-index: 10;
   transform: translateY(0);
 }
 
@@ -106,3 +116,99 @@
 }
 }
 
+@include laptop-1200 {
+  .nav-brand {
+    flex-grow: 1;
+    form {
+      flex-grow: 1;
+      input {
+        width: 100%;
+      }
+    }
+  }
+  .nav ul {
+    position: relative;
+    flex-direction: column;
+    gap: 30px;
+    align-items: stretch;
+    width: fit-content;
+    li:last-child {
+      padding-right: 30px;
+    }
+  }
+  .dropdown {
+    width: 150px;
+    top: 30px;
+  }
+}
+
+@include max-tablet {
+  .nav {
+    gap: 30px;
+  }
+  .nav-brand {
+    gap: 10px;
+    flex-grow: 1;
+    form {
+      flex-grow: 1;
+      input {
+        width: 0;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.75, 0.02, 0.11, 1.08);
+      }
+      .show-input {
+        width: 100%;
+        opacity: 1;
+      }
+      .search svg{
+        font-size: 2rem;
+      }
+    }
+  }
+  .nav ul {
+    display: none;
+  }
+  ul.mobile-ul {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: all 0.3s ease-out;
+  }
+  .dropdown-title, .cart-div {
+    flex-direction: column;
+    gap: 0;
+  }
+  .dropdown {
+    top: 50px;
+    left: -140%;
+    text-align: center;
+  }
+}
+
+@include mobile {
+  .nav {
+    padding: 10px;
+    gap: 10px;
+    .nav-brand {
+      gap: 0px;
+      font-size: 10px;
+    }
+  }
+  .nav.show-navbar {
+    .nav-brand h1 {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+    }
+    ul.mobile-ul {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+    }
+  }
+  .dropdown-title, .icon-link {
+    svg {
+      font-size: 1.7rem;
+    }
+  }
+}

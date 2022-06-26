@@ -1,16 +1,103 @@
 @import './globals';
 .user-details {
-  width: 100%;
+  h2 {
+    padding-bottom: 30px;
+  }
+  .table-div {
+    overflow-x: auto;
+    padding: auto;
+  }
+  .table-list {
+    display: block;
+    width: fit-content;
+    overflow-x: auto;
+    white-space: nowrap;
+    border: $border-prop;
+    margin: auto;
+  }
+  .table-list-head {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: $fw-regular;
+    background-color: rgba(34, 40, 49, 0.5);
+  }
+  .head-category {
+    @include grid-center;
+    width: 250px;
+    border-right: $border-prop;
+  }
+  .head-admin {
+    @include grid-center;
+    width: 100px;
+    border-right: $border-prop;
+  }
+  .head-date {
+    @include grid-center;
+    width: 150px;
+    border-right: $border-prop;
+  }
   p {
     overflow: hidden;
+  }
+  .body-row {
+    display: flex;
+    align-items: stretch;
+    padding: 0 5px;
+    border-bottom: $border-prop;
+    .body-id {
+      width: 260px;
+      @include grid-center;
+      border-right: $border-prop;
+    }
+    .body-title {
+      width: 300px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: 20px 5px;
+      border-right: $border-prop;
+      text-align: center
+    }
+    .price, .email {
+      @include grid-center;
+      border-right: $border-prop;
+    }
+    .hide-buttons {
+      opacity: 0;
+    }
+  }
+  .body-row-sub {
+    &:nth-child(odd) {
+      background-color: rgba(34, 40, 49, 0.1);
+      &:hover {
+        background-color: rgba(34, 40, 49, 0.15);
+      }
+    }
+    &:nth-child(even) {
+      &:hover {
+        background-color: rgba(34, 40, 49, 0.03);
+      }
+    }
+  }
+  .category {
+    flex-grow: 0;
+    width: 100px;
+    text-align: center;
+    @include grid-center;
+    border-right: $border-prop;
   }
   .admin {
     flex-grow: 0;
     width: 100px;
     text-align: center;
+    @include grid-center;
+    border-right: $border-prop;
   }
-  .green {
-    color: hsl(120, 100%, 35%);
+  .date {
+    flex-grow: 0;
+    width: 150px;
+    text-align: center;
+    @include grid-center;
+    border-right: $border-prop;
   }
   .black {
     color: black;
@@ -32,13 +119,22 @@
 }
 
 .product-details {
-  .admin {
+  .category {
     text-transform: capitalize;
-    width: 300px;
+    width: 250px;
   }
-  .price {
+  .admin {
+    width: 100px;
+  }
+  .date {
+    width: 150px;
+  }
+  .price, .email {
     flex-grow: 0;
     width: 120px;
+  }
+  .email {
+    width: 300px;
   }
   .product-id {
     flex-grow: 0;
@@ -48,9 +144,14 @@
 
 .create-product-div {
   display: flex;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  h2 {
+    padding: 10px 0;
+  }
 }
 
 .pagination-div {
@@ -59,4 +160,70 @@
   button{
     font-family: 'Montserrat', sans-serif !important;
   }
+}
+
+.create-button {
+  @include button-prop;
+  margin: 0;
+}
+
+.delete {
+  color: red;
+}
+
+.order-details-link {
+  @include button-prop;
+}
+
+@include mob-576 {
+  .table-list {
+    font-size: 12px;
+  }
+  .user-details {
+    .head-category {
+      width: 170px;
+    }
+    .head-admin {
+      width: 100px;
+    }
+    .head-date {
+      width: 100px;
+    }
+    .body-row {
+      .body-id {
+        width: 200px;
+      }
+      .body-title {
+        width: 150px;
+      }
+      .price {
+        width: 100px;
+      }
+      .email {
+        width: 200px;
+      }
+      .category {
+        width: 170px;
+      }
+      .admin {
+        width: 100px;
+      }
+      .date {
+        width: 100px;
+      }
+    }
+  }
+  .create-product-div {
+    flex-direction: column;
+    text-align: center;
+    align-items: stretch;
+    margin-bottom: 20px;
+    h2 {
+      font-size: 16px;
+    }
+  }
+  .order-details-link {
+    font-size: 10px;
+    padding: 5px;
+  } 
 }

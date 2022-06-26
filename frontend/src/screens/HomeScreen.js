@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Product from '../components/Product';
@@ -9,23 +9,22 @@ import Pagination from '@mui/material/Pagination';
 import Loader from '../components/Loader';
 import { fetchTopProductList } from '../slices/products/topProducts';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Button } from '@mui/material';
 import Rating from '../components/Rating';
 
 const HomeScreen = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const searchQuery = searchParams.get('search') ? searchParams.get('search').trim(): null;
+  const searchQuery = searchParams.get('search')
+    ? searchParams.get('search').trim()
+    : null;
   const page = searchParams.get('page');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {
-    loading: topLoading,
-    topProducts,
-    error: topError,
-  } = useSelector((state) => state.topProductList.topProductList);
+  const { loading: topLoading, topProducts } = useSelector(
+    (state) => state.topProductList.topProductList
+  );
 
   const { loading, products, totalPageCount, error } = useSelector(
     (state) => state.productList.productList
@@ -33,7 +32,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     dispatch(fetchTopProductList());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dispatch(fetchProductList({ searchQuery, page }));
@@ -58,7 +57,8 @@ const HomeScreen = () => {
       {topLoading ? (
         <Loader />
       ) : (
-        topProducts && !searchQuery && (
+        topProducts &&
+        !searchQuery && (
           <>
             <h1 className={classes.latest}>Top rated Products</h1>
             <div className={classes['carousel']}>
@@ -89,15 +89,16 @@ const HomeScreen = () => {
         <h2>Error occurred</h2>
       ) : products && products.length ? (
         <>
-        {searchQuery ? 
-        <div onClick={gobackHandler}>
-              <h5 className={classes['go-back-home']}>
+          {searchQuery ? (
+            <div>
+              <h5 onClick={gobackHandler} className={classes['go-back-home']}>
                 <i className="fa-solid fa-angles-left"></i> Go Back
               </h5>
+              <h1 className={classes.latest}>Search results</h1>
             </div>
-            :
-          <h1 className={classes.latest}>Latest Products</h1>
-        }
+          ) : (
+            <h1 className={classes.latest}>Latest Products</h1>
+          )}
           <div className={classes.grid}>
             {products &&
               products.map((product) => (
@@ -137,8 +138,10 @@ const CarouselItem = (props) => {
         <img className={classes.image} src={props.image} alt={props.title} />
       </div>
       <div className={classes.details}>
-        <h3 className={classes.title}>{props.title}</h3>
-        <p className={classes.title}>{props.description}</p>
+        <h3 className={`${classes.title}`}>{props.title}</h3>
+        <p className={`${classes.title} ${classes.desc}`}>
+          {props.description}
+        </p>
         <div className={classes.rating}>
           <Rating value={props.rating} />
         </div>
