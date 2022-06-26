@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/SigninScreen.module.scss';
 import profileClasses from '../modules/ProfileScreen.module.scss';
-import {
-  updateProfile,
-  userLogin,
-  userProfile,
-  userRegister,
-} from '../slices/users/userInfo';
+import { updateProfile, userProfile } from '../slices/users/userInfo';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getMyOrders } from '../slices/orders/myOrders';
-import orderInfo from '../slices/orders/orderInfo';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const ProfileScreen = () => {
@@ -23,7 +17,6 @@ const ProfileScreen = () => {
     loading: userLoading,
     user,
     userInfo,
-    error,
     success,
   } = useSelector((state) => state.userInfo.userInfo);
 
@@ -143,7 +136,7 @@ const ProfileScreen = () => {
                       <img
                         className={profileClasses['order-img']}
                         src={order.products[0].image}
-                        alt="Image of first product"
+                        alt="first product"
                       />
                       {order.products.length > 1 && (
                         <p>+{order.products.length - 1} more</p>

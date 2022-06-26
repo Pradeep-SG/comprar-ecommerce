@@ -22,7 +22,7 @@ export const getUserById = createAsyncThunk(
 export const updateProfileAdmin = createAsyncThunk(
   'userInfoAdmin/updateProfileAdmin',
   async (arg, { rejectWithValue, getState }) => {
-    const { id, name, email, isAdmin } = arg;
+    const { id } = arg;
     const token = getState().userInfo.userInfo.userInfo.token;
     try {
       const config = {

@@ -32,7 +32,7 @@ const ShippingScreen = () => {
     } else if (!products || !products.length) {
       navigate('/cart');
     }
-  }, [userInfo, navigate]);
+  }, [userInfo, navigate, products]);
 
   const otherPrices = () => {
     const itemsPrice = products

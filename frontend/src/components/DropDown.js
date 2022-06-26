@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import classes from '../modules/Header.module.scss';
 import { ClickAwayListener } from '@mui/base';
 
 const DropDown = ({ title, children }) => {
-  // const wrapperRef = useRef(null);
-  // useOutsideAlerter(wrapperRef);
-
   const [show, setShow] = useState(false);
 
   return (

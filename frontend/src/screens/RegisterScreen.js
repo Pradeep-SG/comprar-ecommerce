@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/SigninScreen.module.scss';
-import { userLogin, userLogout, userRegister } from '../slices/users/userInfo';
+import { userLogout, userRegister } from '../slices/users/userInfo';
 import Message from '../components/Message';
 
 const RegisterScreen = () => {
@@ -14,9 +14,7 @@ const RegisterScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { loading, userInfo, error } = useSelector(
-    (state) => state.userInfo.userInfo
-  );
+  const { userInfo, error } = useSelector((state) => state.userInfo.userInfo);
 
   const searchParams = new URLSearchParams(location.search);
   const redirect = searchParams.get('redirect')

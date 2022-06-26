@@ -11,9 +11,7 @@ const SigninScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { loading, userInfo, error } = useSelector(
-    (state) => state.userInfo.userInfo
-  );
+  const { userInfo, error } = useSelector((state) => state.userInfo.userInfo);
 
   const searchParams = new URLSearchParams(location.search);
   const redirect = searchParams.get('redirect')

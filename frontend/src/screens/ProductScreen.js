@@ -10,6 +10,7 @@ import InputRating from '@mui/material/Rating';
 import Message from '../components/Message';
 import { createReview, resetReviewInfo } from '../slices/products/reviewInfo';
 import Loader from '../components/Loader';
+import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 const ProductScreen = ({ history }) => {
   const [quantity, setQuantity] = useState(1);
@@ -116,36 +117,40 @@ const ProductScreen = ({ history }) => {
                     </div>
                     <div className={classes.stockdesc}>
                       <p>{product.stock > 0 ? 'In Stock' : 'Out of stock'}</p>
-                      {product.stock > 0 && (
-                        <>
-                          <div className={classes.dropdownqtyParent}>
-                            <p
-                              className={`${classes.dropdownqty}`}
-                              onClick={() => setShow(!show)}
-                            >
-                              {quantity}
-                              <i className="fa-solid fa-caret-down"></i>
-                            </p>
-                          </div>
-                          <div
-                            className={`${classes.dropdown} ${
-                              show && classes.showDropdown
-                            }`}
-                          >
-                            {dropDown.map((x) => (
-                              <p
-                                key={x}
-                                onClick={() => {
-                                  setQuantity(x);
-                                  setShow(false);
-                                }}
+                      <ClickAwayListener onClickAway={() => setShow(false)}>
+                        <div>
+                          {product.stock > 0 && (
+                            <>
+                              <div className={classes.dropdownqtyParent}>
+                                <p
+                                  className={`${classes.dropdownqty}`}
+                                  onClick={() => setShow(!show)}
+                                >
+                                  {quantity}
+                                  <i className="fa-solid fa-caret-down"></i>
+                                </p>
+                              </div>
+                              <div
+                                className={`${classes.dropdown} ${
+                                  show && classes.showDropdown
+                                }`}
                               >
-                                {x}
-                              </p>
-                            ))}
-                          </div>
-                        </>
-                      )}
+                                {dropDown.map((x) => (
+                                  <p
+                                    key={x}
+                                    onClick={() => {
+                                      setQuantity(x);
+                                      setShow(false);
+                                    }}
+                                  >
+                                    {x}
+                                  </p>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </ClickAwayListener>
                     </div>
                   </div>
                   <div className={classes.addButton}>

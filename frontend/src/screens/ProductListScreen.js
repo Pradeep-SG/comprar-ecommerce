@@ -32,12 +32,13 @@ const ProductListScreen = () => {
     deleteProductSuccess,
   } = useSelector((state) => state.productList.productList);
 
-  const { loading: createProductLoading, productDetailsAdmin: newProduct } =
-    useSelector((state) => state.productDetailsAdmin.productDetailsAdmin);
+  const { productDetailsAdmin: newProduct } = useSelector(
+    (state) => state.productDetailsAdmin.productDetailsAdmin
+  );
 
   useEffect(() => {
     dispatch(resetProductDetailsAdmin());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!userInfo) {
