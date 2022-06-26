@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "MERN ecommerce",
   "main": "server.js",
+  "engines": {
+    "node": "16.14.0"
+  },
   "type": "module",
   "scripts": {
     "start": "node backend/server",
