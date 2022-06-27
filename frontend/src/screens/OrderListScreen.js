@@ -5,6 +5,7 @@ import classes from '../modules/UsersListScreen.module.scss';
 import { resetProductDetailsAdmin } from '../slices/products/productDetailsAdmin';
 import { getAllOrders } from '../slices/orders/allOrders';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const OrderListScreen = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const OrderListScreen = () => {
 
   return (
     <div className={`${classes['user-details']} ${classes['product-details']}`}>
+      <Meta title="Shippr | Admin | Orders" />
       <div className={`${classes['create-product-div']}`}>
         <h2>Orders</h2>
       </div>

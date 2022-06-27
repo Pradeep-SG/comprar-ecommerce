@@ -11,6 +11,7 @@ import {
   updateProfileAdmin,
 } from '../slices/users/userInfoAdmin';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const UserEditScreen = () => {
   const { id } = useParams();
@@ -72,6 +73,7 @@ const UserEditScreen = () => {
           <Loader />
         ) : (
           <>
+            <Meta title={`Shippr | Admin | User-${user ? user.email : ''}`} />
             {!changeEmail ? (
               <div className={profileClasses.changeName}>
                 <p>{user && user.email}</p>

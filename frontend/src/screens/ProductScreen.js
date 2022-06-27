@@ -11,6 +11,7 @@ import Message from '../components/Message';
 import { createReview, resetReviewInfo } from '../slices/products/reviewInfo';
 import Loader from '../components/Loader';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
+import Meta from '../components/Meta';
 
 const ProductScreen = ({ history }) => {
   const [quantity, setQuantity] = useState(1);
@@ -35,11 +36,19 @@ const ProductScreen = ({ history }) => {
 
   useEffect(() => {
     dispatch(resetReviewInfo());
+    dispatch(fetchProductDetails(id));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dispatch(fetchProductDetails(id));
-  }, [dispatch, id, success]);
+    if (
+      error &&
+      error.message &&
+      error.message.toLowerCase().startsWith('cast to objectid failed')
+    ) {
+      navigate('/error');
+    }
+  }, [dispatch, id, success, navigate, error]);
 
   const addToCartHandler = () => {
     dispatch(fetchCartProduct({ id, quantity }));
@@ -73,10 +82,11 @@ const ProductScreen = ({ history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <h2>{error.message}</h2>
+        <Message variant="danger">{error.message}</Message>
       ) : (
         product && (
           <div className={`${classes['product-outer-div']}`}>
+            <Meta title={`Shippr | Product-${product._id}`} />
             <div>
               <h5 className={classes.goback} onClick={gobackHandler}>
                 <i className="fa-solid fa-angles-left"></i> Go Back

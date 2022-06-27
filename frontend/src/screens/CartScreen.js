@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../components/Modal';
 import classes from '../modules/CartScreen.module.scss';
 import { fetchCartProduct, deleteItem } from '../slices/carts/cartDetails';
+import Message from '../components/Message';
+import Meta from '../components/Meta';
 
 const CartScreen = () => {
   const [show, setShow] = useState(false);
@@ -56,13 +58,14 @@ const CartScreen = () => {
 
   return (
     <>
+      <Meta title="Shippr | Cart" />
       {show && (
         <Modal show={show} showHandler={(val) => setShow(val)}>
           {modalText}
         </Modal>
       )}
       {!products || !products.length ? (
-        <h3>Cart is empty</h3>
+        <Message variant="info">Cart is empty</Message>
       ) : (
         <div className={classes['outer-div']}>
           <div className={classes['cart-details']}>

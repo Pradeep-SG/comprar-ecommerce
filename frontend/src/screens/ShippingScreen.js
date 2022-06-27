@@ -7,6 +7,7 @@ import {
   saveShippingAddress,
 } from '../slices/carts/cartDetails';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 const ShippingScreen = () => {
   const { shippingAddress: addr, products } = useSelector(
@@ -66,6 +67,7 @@ const ShippingScreen = () => {
 
   return (
     <>
+      <Meta title={`Shippr | Shipping details`} />
       <CheckoutSteps />
       <div className={classes['outer-div']} style={{ height: 'auto' }}>
         <form onSubmit={submitHandler} className={classes['form-div']}>

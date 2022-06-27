@@ -5,6 +5,7 @@ import classes from '../modules/SigninScreen.module.scss';
 import paymentClasses from '../modules/PaymentScreen.module.scss';
 import { savePaymentMethod } from '../slices/carts/cartDetails';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 const PaymentScreen = () => {
   const { shippingAddress: addr, products } = useSelector(
@@ -35,6 +36,7 @@ const PaymentScreen = () => {
 
   return (
     <>
+      <Meta title={`Shippr | Payment`} />
       <CheckoutSteps step2 />
       <div className={classes['outer-div']} style={{ height: 'auto' }}>
         <form onSubmit={submitHandler} className={classes['form-div']}>

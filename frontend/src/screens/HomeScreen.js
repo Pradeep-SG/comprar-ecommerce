@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 import { fetchTopProductList } from '../slices/products/topProducts';
 import Carousel from 'react-material-ui-carousel';
 import Rating from '../components/Rating';
+import Meta from '../components/Meta';
 
 const HomeScreen = () => {
   const location = useLocation();
@@ -86,9 +87,10 @@ const HomeScreen = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <h2>Error occurred</h2>
+        <Message variant="danger">Error occured</Message>
       ) : products && products.length ? (
         <>
+          <Meta title="Welcome to Shippr | Home" />
           {searchQuery ? (
             <div>
               <h5 onClick={gobackHandler} className={classes['go-back-home']}>

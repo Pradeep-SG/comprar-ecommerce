@@ -12,6 +12,7 @@ import {
   updateOrderDeliver,
 } from '../slices/orders/orderDeliver';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const OrderScreen = () => {
   const { id } = useParams();
@@ -79,11 +80,14 @@ const OrderScreen = () => {
   return (
     <>
       {error ? (
-        <h3>{error.message ? error.message : 'Error 404'}</h3>
+        <Message variant="danger">
+          {error.message ? error.message : 'Unknown error occurred'}
+        </Message>
       ) : !orderInfo || !userInfo ? (
         <Loader />
       ) : (
         <div className={classes['outer-div']}>
+          <Meta title={`Shippr | Order-${orderInfo._id}`} />
           <div className={classes['cart-details']}>
             <div className="bb pb-4">
               <h3 className="text-upper my-2">Order Details</h3>

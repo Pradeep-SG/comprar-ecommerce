@@ -14,6 +14,7 @@ import {
 } from '../slices/products/productDetailsAdmin';
 import axios from 'axios';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const ProductEditScreen = () => {
   const { id } = useParams();
@@ -124,6 +125,7 @@ const ProductEditScreen = () => {
         <h3 className={classes['signin-title']}>Edit Product</h3>
         {updateSuccess && <Message variant="success">Product updated</Message>}
         {error && <Message variant="danger">{error.message}</Message>}
+        {product && <Meta title={`Shippr | Admin | Product-${product._id}`} />}
         {productLoading || loading ? (
           <Loader />
         ) : (

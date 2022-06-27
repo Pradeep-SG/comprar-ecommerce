@@ -8,6 +8,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getMyOrders } from '../slices/orders/myOrders';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Meta from '../components/Meta';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const ProfileScreen = () => {
           <Loader />
         ) : (
           <>
+            <Meta title={`Shippr | Profile`} />
             <p>{user && user.email}</p>
             {!changeName ? (
               <div className={profileClasses.changeName}>
@@ -174,46 +176,10 @@ const ProfileScreen = () => {
                 ))}
               </>
             ) : (
-              'No orders Placed'
+              <div className={profileClasses['no-order-msg']}>
+                <Message variant="info">No orders Placed</Message>
+              </div>
             )}
-            {/*myOrders && myOrders.length ? (
-              <>
-                <div className={profileClasses['order-row']}>
-                  <p className={profileClasses['order-id']}>Id</p>
-                  <p>Date</p>
-                  <p>Price</p>
-                  <p>Paid</p>
-                  <p>Delivered</p>
-                  <button>Details</button>
-                </div>
-                {myOrders.map((order) => (
-                  <div key={order._id} className={profileClasses['order-row']}>
-                    <p className={profileClasses['order-id']}>{order._id}</p>
-                    <p>{order.createdAt.slice(0, 10)}</p>
-                    <p>{'$ ' + order.totalPrice.toFixed(2)}</p>
-                    <p className={profileClasses.paid}>
-                      {order.isPaid && order.paidAt ? (
-                        order.paidAt.substring(0, 10)
-                      ) : (
-                        <i className="fa-solid fa-xmark"></i>
-                      )}
-                    </p>
-                    <p className={profileClasses.delivered}>
-                      {order.isDelivered && order.deliveredAt ? (
-                        order.deliveredAt.substring(0, 10)
-                      ) : (
-                        <i className="fa-solid fa-xmark"></i>
-                      )}
-                    </p>
-                    <button onClick={() => navigate(`/order/${order._id}`)}>
-                      Details
-                    </button>
-                  </div>
-                ))}
-              </>
-            ) : (
-              'No orders Placed'
-            )*/}
           </>
         )}
       </div>

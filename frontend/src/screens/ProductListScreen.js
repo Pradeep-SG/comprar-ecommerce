@@ -12,6 +12,7 @@ import {
 } from '../slices/products/productDetailsAdmin';
 import { Pagination } from '@mui/material';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const ProductListScreen = () => {
   const location = useLocation();
@@ -88,6 +89,7 @@ const ProductListScreen = () => {
         <>
           {products && products.length ? (
             <>
+              <Meta title={`Shippr | Admin | Orders`} />
               <div className={classes['table-div']}>
                 <div className={`${classes['table-list']}`}>
                   <div

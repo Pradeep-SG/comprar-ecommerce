@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/UsersListScreen.module.scss';
 import { deleteUserById, getUsersList } from '../slices/users/usersList';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const UsersListScreen = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const UsersListScreen = () => {
         <Loader />
       ) : (
         <>
+          <Meta title={`Shippr | Admin | Users`} />
           {usersList && usersList.length ? (
             <div className={classes['table-div']}>
               <div className={`${classes['table-list']}`}>

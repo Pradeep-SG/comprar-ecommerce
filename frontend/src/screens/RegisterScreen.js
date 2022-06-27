@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classes from '../modules/SigninScreen.module.scss';
 import { userLogout, userRegister } from '../slices/users/userInfo';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -39,6 +40,7 @@ const RegisterScreen = () => {
 
   return (
     <div className={classes['outer-div']}>
+      <Meta title={`Shippr | Register`} />
       <form onSubmit={submitHandler} className={classes['form-div']}>
         <h3 className={classes['signin-title']}>Sign Up</h3>
         {errMsg && <Message variant="danger">{errMsg}</Message>}

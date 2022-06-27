@@ -6,6 +6,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { createNewOrder } from '../slices/orders/orderInfo';
 import { resetCart } from '../slices/carts/cartDetails';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const PlaceOrderScreen = () => {
 
   return (
     <>
+      <Meta title={`Shippr | Place order`} />
       <CheckoutSteps step2 step3 />
       {!products || !addr ? (
         <Loader />
