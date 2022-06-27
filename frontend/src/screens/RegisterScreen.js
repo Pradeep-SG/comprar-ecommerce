@@ -40,7 +40,7 @@ const RegisterScreen = () => {
 
   return (
     <div className={classes['outer-div']}>
-      <Meta title={`Shippr | Register`} />
+      <Meta title={`Comprar | Register`} />
       <form onSubmit={submitHandler} className={classes['form-div']}>
         <h3 className={classes['signin-title']}>Sign Up</h3>
         {errMsg && <Message variant="danger">{errMsg}</Message>}

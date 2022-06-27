@@ -87,7 +87,7 @@ const OrderScreen = () => {
         <Loader />
       ) : (
         <div className={classes['outer-div']}>
-          <Meta title={`Shippr | Order-${orderInfo._id}`} />
+          <Meta title={`Comprar | Order-${orderInfo._id}`} />
           <div className={classes['cart-details']}>
             <div className="bb pb-4">
               <h3 className="text-upper my-2">Order Details</h3>

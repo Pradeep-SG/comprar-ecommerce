@@ -36,7 +36,7 @@ const PaymentScreen = () => {
 
   return (
     <>
-      <Meta title={`Shippr | Payment`} />
+      <Meta title={`Comprar | Payment`} />
       <CheckoutSteps step2 />
       <div className={classes['outer-div']} style={{ height: 'auto' }}>
         <form onSubmit={submitHandler} className={classes['form-div']}>

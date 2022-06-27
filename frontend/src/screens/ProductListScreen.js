@@ -89,7 +89,7 @@ const ProductListScreen = () => {
         <>
           {products && products.length ? (
             <>
-              <Meta title={`Shippr | Admin | Orders`} />
+              <Meta title={`Comprar | Admin | Orders`} />
               <div className={classes['table-div']}>
                 <div className={`${classes['table-list']}`}>
                   <div

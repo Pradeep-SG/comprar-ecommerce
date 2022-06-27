@@ -58,7 +58,7 @@ const CartScreen = () => {
 
   return (
     <>
-      <Meta title="Shippr | Cart" />
+      <Meta title="Comprar | Cart" />
       {show && (
         <Modal show={show} showHandler={(val) => setShow(val)}>
           {modalText}

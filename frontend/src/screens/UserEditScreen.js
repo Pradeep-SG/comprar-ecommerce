@@ -73,7 +73,7 @@ const UserEditScreen = () => {
           <Loader />
         ) : (
           <>
-            <Meta title={`Shippr | Admin | User-${user ? user.email : ''}`} />
+            <Meta title={`Comprar | Admin | User-${user ? user.email : ''}`} />
             {!changeEmail ? (
               <div className={profileClasses.changeName}>
                 <p>{user && user.email}</p>

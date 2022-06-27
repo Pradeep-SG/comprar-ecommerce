@@ -86,7 +86,7 @@ const ProductScreen = ({ history }) => {
       ) : (
         product && (
           <div className={`${classes['product-outer-div']}`}>
-            <Meta title={`Shippr | Product-${product._id}`} />
+            <Meta title={`Comprar | Product-${product._id}`} />
             <div>
               <h5 className={classes.goback} onClick={gobackHandler}>
                 <i className="fa-solid fa-angles-left"></i> Go Back

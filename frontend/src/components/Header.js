@@ -49,7 +49,7 @@ const Header = () => {
     <nav className={`${classes.nav} ${toggle ? classes['show-navbar'] : ''}`}>
       <div className={classes['nav-brand']}>
         <h1>
-          <Link to="/">Shippr</Link>
+          <Link to="/">Comprar</Link>
         </h1>
         <ClickAwayListener
           onClickAway={() => {

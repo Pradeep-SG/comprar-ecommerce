@@ -90,7 +90,7 @@ const HomeScreen = () => {
         <Message variant="danger">Error occured</Message>
       ) : products && products.length ? (
         <>
-          <Meta title="Welcome to Shippr | Home" />
+          <Meta title="Welcome to Comprar | Home" />
           {searchQuery ? (
             <div>
               <h5 onClick={gobackHandler} className={classes['go-back-home']}>

@@ -67,7 +67,7 @@ const ProfileScreen = () => {
           <Loader />
         ) : (
           <>
-            <Meta title={`Shippr | Profile`} />
+            <Meta title={`Comprar | Profile`} />
             <p>{user && user.email}</p>
             {!changeName ? (
               <div className={profileClasses.changeName}>

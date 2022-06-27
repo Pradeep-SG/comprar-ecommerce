@@ -33,7 +33,7 @@ const OrderListScreen = () => {
 
   return (
     <div className={`${classes['user-details']} ${classes['product-details']}`}>
-      <Meta title="Shippr | Admin | Orders" />
+      <Meta title="Comprar | Admin | Orders" />
       <div className={`${classes['create-product-div']}`}>
         <h2>Orders</h2>
       </div>

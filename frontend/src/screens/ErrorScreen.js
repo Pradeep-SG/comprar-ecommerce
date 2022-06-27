@@ -6,7 +6,7 @@ import classes from '../modules/ErrorPage.module.scss';
 const ErrorScreen = () => {
   return (
     <div className={classes['notfound-outer']}>
-      <Meta title={'Shippr | Error 404'} />
+      <Meta title={'Comprar | Error 404'} />
       <div className={classes.notfound}>
         <div className={classes['notfound-404']}>
           <h1>Oops!</h1>

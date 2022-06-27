@@ -34,7 +34,7 @@ const SigninScreen = () => {
 
   return (
     <div className={classes['outer-div']}>
-      <Meta title={`Shippr | Sign in`} />
+      <Meta title={`Comprar | Sign in`} />
       <form onSubmit={submitHandler} className={classes['form-div']}>
         <h3 className={classes['signin-title']}>Sign In</h3>
         {error && <Message variant="danger">{error.message}</Message>}

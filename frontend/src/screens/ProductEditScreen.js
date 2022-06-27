@@ -125,7 +125,7 @@ const ProductEditScreen = () => {
         <h3 className={classes['signin-title']}>Edit Product</h3>
         {updateSuccess && <Message variant="success">Product updated</Message>}
         {error && <Message variant="danger">{error.message}</Message>}
-        {product && <Meta title={`Shippr | Admin | Product-${product._id}`} />}
+        {product && <Meta title={`Comprar | Admin | Product-${product._id}`} />}
         {productLoading || loading ? (
           <Loader />
         ) : (

@@ -67,7 +67,7 @@ const ShippingScreen = () => {
 
   return (
     <>
-      <Meta title={`Shippr | Shipping details`} />
+      <Meta title={`Comprar | Shipping details`} />
       <CheckoutSteps />
       <div className={classes['outer-div']} style={{ height: 'auto' }}>
         <form onSubmit={submitHandler} className={classes['form-div']}>

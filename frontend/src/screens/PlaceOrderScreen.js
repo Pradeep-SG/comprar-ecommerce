@@ -55,7 +55,7 @@ const PlaceOrderScreen = () => {
 
   return (
     <>
-      <Meta title={`Shippr | Place order`} />
+      <Meta title={`Comprar | Place order`} />
       <CheckoutSteps step2 step3 />
       {!products || !addr ? (
         <Loader />

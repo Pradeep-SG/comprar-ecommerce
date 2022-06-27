@@ -12,7 +12,7 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: 'Welcome to Shippr',
+  title: 'Welcome to Comprar',
   description: 'We sell best products for cheap price',
   keywords: 'ecommerce, buy, electronics, fashion, store, mart, ebuy',
 };

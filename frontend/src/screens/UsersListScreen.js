@@ -45,7 +45,7 @@ const UsersListScreen = () => {
         <Loader />
       ) : (
         <>
-          <Meta title={`Shippr | Admin | Users`} />
+          <Meta title={`Comprar | Admin | Users`} />
           {usersList && usersList.length ? (
             <div className={classes['table-div']}>
               <div className={`${classes['table-list']}`}>
